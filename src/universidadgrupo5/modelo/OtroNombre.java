@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 package universidadgrupo5.modelo;
-
+//otro commit mas
 /**
  *
  * @author br1st
  */
-public class Prueba {
+public class OtroNombre {
     
 }
