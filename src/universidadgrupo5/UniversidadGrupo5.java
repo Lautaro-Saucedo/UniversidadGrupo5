@@ -25,12 +25,15 @@ public class UniversidadGrupo5 {
         Materia m = new Materia("test1",1,true);
         
         md.guardarMateria(m);
-//        LocalDate miFecha = LocalDate.of(2000,01,01);
+        LocalDate miFecha = LocalDate.of(2000,01,01);
         
-//        Alumno miAlumno = new Alumno("Nom1","Ap1",miFecha,32456789,true);
-//        AlumnoData ad = new AlumnoData(con);
-//        ad.guardarAlumno(miAlumno);
+        Alumno miAlumno = new Alumno("Nom1","Ap1",miFecha,32456789,true);
+        AlumnoData ad = new AlumnoData(con);
+        ad.guardarAlumno(miAlumno);
         
+        Cursada cur = new Cursada(miAlumno,m,0.0);
+        CursadaData curData = new CursadaData(con);
+        curData.inscribir(cur);
     }
     
 }

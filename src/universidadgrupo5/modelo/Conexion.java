@@ -1,5 +1,5 @@
 package universidadgrupo5.modelo;
-//Hoola mundo! solo vine a hacer un comentario mirá, mirá como hago un comentario jojooojo Boeno chao
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

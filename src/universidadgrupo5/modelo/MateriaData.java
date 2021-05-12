@@ -35,6 +35,9 @@ public class MateriaData {
             ps.setInt(2, m.getAnio());
             ps.setBoolean(3, m.getEstado());
             ps.executeQuery();
+            ResultSet rs=ps.getGeneratedKeys();
+            rs.next();
+            m.setId_materia(rs.getInt(1));
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
