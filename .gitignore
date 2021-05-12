@@ -1,6 +1,12 @@
 # Compiled class file
 private.properties
+private.xml
 *.class
+#netbeans specific
+core
+nbproject/*
+!nbproject/project.properties
+!nbproject/project.xml
 
 # Log file
 *.log
