@@ -5,6 +5,7 @@
  */
 package universidadgrupo5;
 
+import java.time.LocalDate;
 import universidadgrupo5.modelo.*;
 
 /**
@@ -24,6 +25,12 @@ public class UniversidadGrupo5 {
         Materia m = new Materia("test1",1,true);
         
         md.guardarMateria(m);
+//        LocalDate miFecha = LocalDate.of(2000,01,01);
+        
+//        Alumno miAlumno = new Alumno("Nom1","Ap1",miFecha,32456789,true);
+//        AlumnoData ad = new AlumnoData(con);
+//        ad.guardarAlumno(miAlumno);
+        
     }
     
 }
