@@ -1,8 +1,10 @@
 
-package universidadgrupo5.modelo;
+package universidadgrupo5.controlador;
 
 import java.sql.*;
 import java.util.*;
+import universidadgrupo5.modelo.Conexion;
+import universidadgrupo5.modelo.Cursada;
 
 /**
  *

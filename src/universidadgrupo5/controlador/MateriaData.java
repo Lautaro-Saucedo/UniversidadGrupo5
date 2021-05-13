@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package universidadgrupo5.modelo;
+package universidadgrupo5.controlador;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import universidadgrupo5.modelo.Conexion;
+import universidadgrupo5.modelo.Materia;
 
 /**
  *
