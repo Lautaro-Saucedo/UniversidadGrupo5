@@ -42,10 +42,14 @@ public class AlumnoData {
             ps.setDate(3, Date.valueOf(a.getFecha_nac()));
             ps.setLong(4, a.getLegajo());
             ps.setBoolean(5, a.isEstado());
-            ps.executeUpdate();
+            if(ps.executeUpdate() == 1){//esta linea esta dando error al duplicar alumnos
+                JOptionPane.showMessageDialog(null, "Alumno guardado correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se pudo guardar,legajo repetido");
+            }
             ResultSet rs = ps.getGeneratedKeys();
             if(rs.next()){
-                a.setId_alumno(rs.getInt(1));
+                a.setId_alumno(rs.getInt(1));//le seteo el id que me devuelve mariadb
                 
             }else{
                 System.out.println("No se pudo obtener el ID");
@@ -61,9 +65,9 @@ public class AlumnoData {
         String query = "SELECT id_alumno, nombre, apellido, fecha_nac, legajo, estado FROM alumno WHERE legajo=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setLong(5, legajo);
+            ps.setLong(1, legajo);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){//este bucle me parece que esta demas xq es un solo alumno
+            if(rs.next()){
                 
                 a.setId_alumno(rs.getInt("id_alumno"));
                 a.setNombre(rs.getString("nombre"));
@@ -106,40 +110,51 @@ public class AlumnoData {
         return alumnos;
     }
     
-    public void actualizarAlumno(Alumno a){
-        String query = "UPDATE alumno SET nombre=?,apellido=?,fecha_nac=?,legajo=?,estado=? WHERE id_alumno=?";//el estado se lo tengo que sacar xq de aca no borro
+    public void actualizarAlumno(Alumno a){//el alumno lo recupero a traves de la vista
+        //con una previa busqueda por legajo, que me recupere todos los datos
+        String query = "UPDATE alumno SET nombre=?,apellido=?,fecha_nac=?,legajo=? WHERE id_alumno=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setInt(6, a.getId_alumno());
+            ps.setInt(5, a.getId_alumno());
             ps.setString(1, a.getNombre());
             ps.setString(2, a.getApellido());
             ps.setDate(3, Date.valueOf(a.getFecha_nac()));
             ps.setLong(4, a.getLegajo());
-            ps.setBoolean(5, a.isEstado());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
             
+            if(ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "El alumno se modifico correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se actualizo el alumno");
+            }
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    public void borrarAlumno(int id){//pensar que si se borra no provoque problemas
-        //en la base de datos.
+    public void borrarAlumno(int id){//pensar que el usuario no conoce el id,
+        //podria ser que desde la vista recupere el alumno, y de ahi obtener el id,
+        //o sino cambio directamente el argumento por legajo
+        
         String query = "UPDATE FROM alumno set estado=false WHERE id_alumno=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id);
             
-            if(ps.executeUpdate() == 1){
+            if(ps.executeUpdate() == 1){// el metodo executeUpdate devuelve un entero
+                //si le mandas insert , retorna la cantidad de filas que agrego
+                //si le mandas delete, retorna la cantidad de filas que borro
+                //si le mandas un update, retorna la cantidad de filas que actualizo
                 JOptionPane.showMessageDialog(null, "Borrado exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null,"El alumno que se desea borrar no existe");
             }
             
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al borrar alumno");
         }
     }
+    //opcional agregar el borrado fisico
     //obtenerPorLegajo(int d, int h):List<Alumno>,este si nos sobra tiempo
 }
