@@ -85,7 +85,8 @@ public class AlumnoData {
     }
     
     public List<Alumno> listarAlumno(int legajo){//esto no deberia tener argumento
-        List<Alumno> alumnos = new ArrayList<>();
+        List<Alumno> alumnos = new ArrayList<>(); //Laucha: no, no le hace falta ningun argumento, tambien el query se puede simplificar a
+                                                  //SELECT * FROM alumno
         String query = "SELECT id_alumno, nombre, apellido, fecha_nac, legajo, estado FROM alumno WHERE 1";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
@@ -135,6 +136,7 @@ public class AlumnoData {
     public void borrarAlumno(int id){//pensar que el usuario no conoce el id,
         //podria ser que desde la vista recupere el alumno, y de ahi obtener el id,
         //o sino cambio directamente el argumento por legajo
+        // Laucha: se puede obtener facil cargando un combobox,lista,o tabla en las vistas
         
         String query = "UPDATE FROM alumno set estado=false WHERE id_alumno=?";
         try {

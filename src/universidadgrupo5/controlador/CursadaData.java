@@ -24,7 +24,7 @@ public class CursadaData {
         String query = "INSERT INTO cursada(id_alumno,id_materia, nota) VALUES (?,?,?)";
         
         try{
-            PreparedStatement ps = conexion.prepareStatement(query);
+            PreparedStatement ps = conexion.prepareStatement(query);//Laucha: recuperar la clave generada por si las moscas
             ps.setInt(1,cursada.getId_alumno().getId_alumno());
             ps.setInt(2,cursada.getId_materia().getId_materia());
             ps.setDouble(3,cursada.getNota());
@@ -106,6 +106,8 @@ public class CursadaData {
     }
     
     public List<Materia> obtenerMateriasNOCursadas(int id_alumno){
+        //Laucha: no funciona, esto estaria devolviendo las materias cursadas por todos los alumnos menos el que le pasaste por parametro.
+        //aca habria que obtener todas las id_materia de la tabla materia,compararla con cursada y devolver las id que no estan.
         ArrayList<Materia> lista = new ArrayList<>();
         String query = "SELECT id_materia FROM cursada WHERE NOT id_alumno=?";
         try{
@@ -125,6 +127,7 @@ public class CursadaData {
     }
     
     public void borrarCursadaDeUnaMateriaDeUnAlumno(int id_alumno , int id_materia){
+        //este query esta mal, es DELETE FROM (tabla) WHERE (condiciones)
         String query = "DELETE cursada FROM cursada WHERE id_alumno=? , id_materia=?";
         try{
             PreparedStatement ps = conexion.prepareStatement(query);
