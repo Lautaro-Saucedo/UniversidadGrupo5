@@ -24,7 +24,7 @@ public class CursadaData {
         String query = "INSERT INTO cursada(id_alumno,id_materia, nota) VALUES (?,?,?)";
         
         try{
-            PreparedStatement ps = conexion.prepareStatement(query);//Laucha: recuperar la clave generada por si las moscas
+            PreparedStatement ps = conexion.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);//LXW: Lito
             ps.setInt(1,cursada.getId_alumno().getId_alumno());
             ps.setInt(2,cursada.getId_materia().getId_materia());
             ps.setDouble(3,cursada.getNota());
@@ -100,16 +100,16 @@ public class CursadaData {
             }
             ps.close();
         }catch(SQLException sqle){
-            JOptionPane.showMessageDialog(null, "No se pudo obtener materias de ese alumno");
+            JOptionPane.showMessageDialog(null, "No se pudo obtener materias de este alumno");
         }
         return lista;
     }
     
     public List<Materia> obtenerMateriasNOCursadas(int id_alumno){
-        //Laucha: no funciona, esto estaria devolviendo las materias cursadas por todos los alumnos menos el que le pasaste por parametro.
-        //aca habria que obtener todas las id_materia de la tabla materia,compararla con cursada y devolver las id que no estan.
+        //LXW: Así creo que va
         ArrayList<Materia> lista = new ArrayList<>();
-        String query = "SELECT id_materia FROM cursada WHERE NOT id_alumno=?";
+        String query = "SELECT * FROM materia WHERE id_materia NOT IN(SELECT materia.id_materia FROM materia, "
+                + "cursada WHERE materia.id_materia=cursada.id_materia AND cursada.id_alumno=?)";
         try{
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id_alumno);
@@ -117,18 +117,21 @@ public class CursadaData {
             while(rs.next()){
                 Materia aux= new Materia();
                 aux.setId_materia(rs.getInt("id_materia"));
+                aux.setNombre_materia(rs.getString("nombre_materia"));
+                aux.setAnio(rs.getInt("año"));
+                aux.setEstado(rs.getBoolean("estado"));
                 lista.add(aux);
             }
             ps.close();
         }catch(SQLException sqle){
-            JOptionPane.showMessageDialog(null, "No se pudo obtener materias de ese alumno");
+            JOptionPane.showMessageDialog(null, "No se pudo NO obtener materias de este alumno");
         }
         return lista;
     }
     
     public void borrarCursadaDeUnaMateriaDeUnAlumno(int id_alumno , int id_materia){
-        //este query esta mal, es DELETE FROM (tabla) WHERE (condiciones)
-        String query = "DELETE cursada FROM cursada WHERE id_alumno=? , id_materia=?";
+        //LXW: Lito
+        String query = "DELETE FROM cursada WHERE ()id_alumno=? and id_materia=?";
         try{
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(id_alumno, id_alumno);

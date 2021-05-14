@@ -24,20 +24,20 @@ public class UniversidadGrupo5 {
     public static void main(String[] args) {
         Conexion con = new Conexion();
         con.getConexion();
-//        MateriaData md = new MateriaData(con);
-//        
-//        Materia m = new Materia("test1",1,true);
-//        
-//        md.guardarMateria(m);
-//        LocalDate miFecha = LocalDate.of(2000,01,01);
-//        
-//        Alumno miAlumno = new Alumno("Nom1","Ap1",miFecha,32456789,true);
-//        AlumnoData ad = new AlumnoData(con);
-//        ad.guardarAlumno(miAlumno);
-//        
-//        Cursada cur = new Cursada(miAlumno,m,0.0);
-//        CursadaData curData = new CursadaData(con);
-//        curData.inscribir(cur);
+        MateriaData md = new MateriaData(con);
+        
+        Materia m = new Materia("test1",1,true);
+        
+        md.guardarMateria(m);
+        LocalDate miFecha = LocalDate.of(2000,01,01);
+        
+        Alumno miAlumno = new Alumno("Nom1","Ap1",miFecha,32456789,true);
+        AlumnoData asdf = new AlumnoData(con);
+        asdf.guardarAlumno(miAlumno);
+        
+        Cursada cur = new Cursada(miAlumno,m,0.0);
+        CursadaData curData = new CursadaData(con);
+        curData.inscribir(cur);
         LocalDate fecha = LocalDate.of(2000, 01, 01);
         
         Alumno yo = new Alumno("Bruno","Sturniolo",fecha,36046044,true);
@@ -48,6 +48,7 @@ public class UniversidadGrupo5 {
         
         System.out.println(ad.buscarAlumno(36046044).getNombre());
         
+        CursadaData cd = new CursadaData(con);
     }
     
 }
