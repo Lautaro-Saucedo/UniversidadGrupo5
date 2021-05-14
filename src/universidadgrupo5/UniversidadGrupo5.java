@@ -72,7 +72,8 @@ public class UniversidadGrupo5 {
 //        
         CursadaData x = new CursadaData(con);
         
-        List<Materia> lista = x.obtenerMateriasNOCursadas(4);
+        //List<Materia> lista = x.obtenerMateriasNOCursadas(4);
+        List<Materia> lista = x.obtenerMateriasCursadas(3);
         
         for(Materia m:lista){
             System.out.println(m);

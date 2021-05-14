@@ -86,9 +86,10 @@ public class CursadaData {
         return lista;
     }
     
-    public List<Materia> obtenerMateriasCursadas(int id_alumno){
+    public List<Materia> obtenerMateriasCursadas(int id_alumno){ //LXW: Funcando!
         ArrayList<Materia> lista = new ArrayList<>();
-        String query = "SELECT id_materia FROM cursada WHERE id_alumno=?";
+        String query = "SELECT materia.id_materia , nombre_materia , año , estado FROM materia, cursada "
+                + "WHERE materia.id_materia = cursada.id_materia AND cursada.id_alumno=?";
         try{
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id_alumno);
@@ -96,6 +97,9 @@ public class CursadaData {
             while(rs.next()){
                 Materia aux= new Materia();
                 aux.setId_materia(rs.getInt("id_materia"));
+                aux.setNombre_materia(rs.getString("nombre_materia"));
+                aux.setAnio(rs.getInt("año"));
+                aux.setEstado(rs.getBoolean("estado"));
                 lista.add(aux);
             }
             ps.close();
@@ -106,7 +110,7 @@ public class CursadaData {
     }
     
     public List<Materia> obtenerMateriasNOCursadas(int id_alumno){
-        //LXW: Así creo que va
+        //LXW: ya funca
         ArrayList<Materia> lista = new ArrayList<>();
         String query = "SELECT * FROM materia WHERE id_materia NOT IN(SELECT materia.id_materia FROM materia, "
                 + "cursada WHERE materia.id_materia=cursada.id_materia AND cursada.id_alumno=?)";
