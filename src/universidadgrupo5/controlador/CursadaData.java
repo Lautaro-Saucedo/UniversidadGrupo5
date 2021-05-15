@@ -35,7 +35,7 @@ public class CursadaData {
         }
     }
     
-    public List<Cursada> obtenerCursadas(){
+    public List<Cursada> obtenerCursadas(){//LXW: Funcando
         ArrayList<Cursada> lista = new ArrayList<>();
         String query = "SELECT * FROM cursada";
         try {
@@ -60,7 +60,7 @@ public class CursadaData {
         return lista;
     }
     
-    public List<Cursada> obtenerCursadasXAlumno(int id_alumno){
+    public List<Cursada> obtenerCursadasXAlumno(int id_alumno){ //LXW: Funcando
         ArrayList<Cursada> lista = new ArrayList<>();
         String query="SELECT * FROM cursada WHERE id_alumno=?";
         try {
@@ -109,8 +109,7 @@ public class CursadaData {
         return lista;
     }
     
-    public List<Materia> obtenerMateriasNOCursadas(int id_alumno){
-        //LXW: ya funca
+    public List<Materia> obtenerMateriasNOCursadas(int id_alumno){//LXW: ya funca
         ArrayList<Materia> lista = new ArrayList<>();
         String query = "SELECT * FROM materia WHERE id_materia NOT IN(SELECT materia.id_materia FROM materia, "
                 + "cursada WHERE materia.id_materia=cursada.id_materia AND cursada.id_alumno=?)";
@@ -133,25 +132,26 @@ public class CursadaData {
         return lista;
     }
     
-    public void borrarCursadaDeUnaMateriaDeUnAlumno(int id_alumno , int id_materia){
-        //LXW: Lito
-        String query = "DELETE FROM cursada WHERE ()id_alumno=? and id_materia=?";
+    public void borrarCursadaDeUnaMateriaDeUnAlumno(int id_alumno , int id_materia){//LXW: Funcando!
+        String query = "DELETE FROM cursada WHERE id_alumno=? and id_materia=?";
         try{
             PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setInt(id_alumno, id_alumno);
-            ps.setInt(id_materia, id_materia);
-            ps.execute();
+            ps.setInt(1, id_alumno);
+            ps.setInt(2, id_materia);
+            ps.executeUpdate();
             ps.close();
         }catch(SQLException sqle){
             JOptionPane.showMessageDialog(null, "No se pudo eliminar");
         }
     }
     
-    public void actualizarNotaCursada(int id_Materia, int id_alumno, int nota){
-        String query="UPDATE cursada SET nota=? WHERE id_materia=?, id_alumno=?";
+    public void actualizarNotaCursada(int id_alumno, int id_materia, double nota){ //LXW: Funca!
+        String query="UPDATE cursada SET nota=? WHERE id_alumno=? AND id_materia=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setInt(nota,nota);
+            ps.setDouble(1,nota);
+            ps.setInt(2, id_alumno);
+            ps.setInt(3, id_materia);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException sqle){

@@ -53,6 +53,11 @@ public class Cursada {
     public void setNota(double nota) {
         this.nota = nota;
     }
+
+    @Override
+    public String toString() {
+        return "Cursada{" + "id: " + id_cursada + ", id_alumno: " + id_alumno.getId_alumno() + ", id_materia: " + id_materia.getId_materia() + ", nota: " + nota + '}';
+    }
     
     
     
