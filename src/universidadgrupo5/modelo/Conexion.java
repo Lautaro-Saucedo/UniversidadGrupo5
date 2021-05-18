@@ -13,6 +13,7 @@ public class Conexion {
     
     public Conexion(){
         try {
+            
             Class.forName("org.mariadb.jdbc.Driver");
         } catch (ClassNotFoundException cnte){
             JOptionPane.showMessageDialog(null, "Clase Driver no encontrada.");

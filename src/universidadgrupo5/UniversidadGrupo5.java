@@ -24,7 +24,9 @@ public class UniversidadGrupo5 {
      */
     public static void main(String[] args) {
         Conexion con = new Conexion();
+        
         con.getConexion();
+        
 //        MateriaData md = new MateriaData(con);
 //        
 //        Materia materia1 = new Materia("test1",1,true);
@@ -35,20 +37,25 @@ public class UniversidadGrupo5 {
 //        md.guardarMateria(materia2);
 //        md.guardarMateria(materia3);
 //        
-//        LocalDate miFecha = LocalDate.of(2000,01,01);
-//        LocalDate miFecha2 = LocalDate.of(1993,05,16);
-//        LocalDate miFecha3 = LocalDate.of(2002,12,24);
+        LocalDate miFecha = LocalDate.of(2000,01,01);
+        LocalDate miFecha2 = LocalDate.of(1993,05,16);
+        LocalDate miFecha3 = LocalDate.of(2002,12,24);
 //        
-//        Alumno miAlumno1 = new Alumno("Nom1","Ap1",miFecha,32456789,true);
-//        Alumno miAlumno2 = new Alumno("Nom2","Ap2",miFecha2,12345,true);
-//        Alumno miAlumno3 = new Alumno("Nom3","Ap3",miFecha3,67890,true);
-//        
-//        AlumnoData alu1 = new AlumnoData(con);
-//        alu1.guardarAlumno(miAlumno1);
-//        AlumnoData alu2 = new AlumnoData(con);
-//        alu2.guardarAlumno(miAlumno2);
-//        AlumnoData alu3 = new AlumnoData(con);
-//        alu3.guardarAlumno(miAlumno3);
+        Alumno miAlumno1 = new Alumno("Nom1","Ap1",miFecha,32456789,true);
+        Alumno miAlumno2 = new Alumno("Nom2","Ap2",miFecha2,12345,true);
+        Alumno miAlumno3 = new Alumno("Nom3","Ap3",miFecha3,67890,true);
+        Alumno miActualizado = new Alumno("Bruno","Sturniolo",miFecha,753,true);
+        AlumnoData ad = new AlumnoData(con);
+        ad.guardarAlumno(miAlumno1);
+        ad.guardarAlumno(miAlumno2);
+        ad.guardarAlumno(miAlumno3);
+        Alumno elBuscado = ad.buscarAlumno(12345);
+        ad.actualizarAlumno(miActualizado);
+        ad.borrarAlumno(18);
+        List<Alumno> lista = ad.listarAlumno();
+        
+        
+        
 //        
 //        Cursada alu1mat1 = new Cursada(miAlumno1,materia1,0.0);
 //        CursadaData curData = new CursadaData(con);
@@ -70,30 +77,30 @@ public class UniversidadGrupo5 {
 //        CursadaData curData6 = new CursadaData(con);
 //        curData6.inscribir(alu3mat2);
 //        
-        CursadaData x = new CursadaData(con);
-        
-        //List<Materia> lista = x.obtenerMateriasNOCursadas(4);
-        //List<Materia> lista = x.obtenerMateriasCursadas(3);
-        List<Cursada> lista = x.obtenerCursadasXAlumno(2);
-        //List<Cursada> lista = x.obtenerCursadas();
-        
+//        CursadaData x = new CursadaData(con);
+//        
+//        List<Materia> lista = x.obtenerMateriasNOCursadas(4);
+//        List<Materia> lista = x.obtenerMateriasCursadas(3);
+//        List<Cursada> lista = x.obtenerCursadasXAlumno(2);
+//        List<Cursada> lista = x.obtenerCursadas();
+//        
 //        for(Materia m:lista){
 //            System.out.println(m);
 //        }
-        
-        for(Cursada s:lista){
-            System.out.println(s);
-        }
-        
-        x.actualizarNotaCursada(2, 3, 9.5);
-        System.out.println("-----------------------------------------");
-        
-        
-        List<Cursada> lista2 = x.obtenerCursadasXAlumno(2);
-        
-        for(Cursada s:lista2){
-            System.out.println(s);
-        }
+//        
+//        for(Cursada s:lista){
+//            System.out.println(s);
+//        }
+//        
+//        x.actualizarNotaCursada(2, 3, 9.5);
+//        System.out.println("-----------------------------------------");
+//        
+//        
+//        List<Cursada> lista2 = x.obtenerCursadasXAlumno(2);
+//        
+//        for(Cursada s:lista2){
+//            System.out.println(s);
+//        }
     }
     
 }

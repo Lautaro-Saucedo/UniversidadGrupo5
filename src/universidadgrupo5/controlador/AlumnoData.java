@@ -56,7 +56,7 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al guardar alumno");
         }
     }
     
@@ -78,16 +78,15 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
-            //poner un JPane error al buscar alumno
+            JOptionPane.showMessageDialog(null, "Error al buscar alumno");
+            
         }
         return a;
     }
     
-    public List<Alumno> listarAlumno(int legajo){//esto no deberia tener argumento
-        List<Alumno> alumnos = new ArrayList<>(); //Laucha: no, no le hace falta ningun argumento, tambien el query se puede simplificar a
-                                                  //SELECT * FROM alumno
-        String query = "SELECT id_alumno, nombre, apellido, fecha_nac, legajo, estado FROM alumno WHERE 1";
+    public List<Alumno> listarAlumno(){
+        List<Alumno> alumnos = new ArrayList<>();
+        String query = "SELECT * FROM alumno";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             
@@ -106,7 +105,7 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al listar alumnos");
         }
         return alumnos;
     }
@@ -129,14 +128,13 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al actualizar alumno");
         }
     }
     
-    public void borrarAlumno(int id){//pensar que el usuario no conoce el id,
-        //podria ser que desde la vista recupere el alumno, y de ahi obtener el id,
-        //o sino cambio directamente el argumento por legajo
-        // Laucha: se puede obtener facil cargando un combobox,lista,o tabla en las vistas
+    public void borrarAlumno(int id){//desde la vista recupero el alumno, y de ahi obtener el id,
+        
+        
         
         String query = "UPDATE FROM alumno set estado=false WHERE id_alumno=?";
         try {
@@ -157,6 +155,5 @@ public class AlumnoData {
             JOptionPane.showMessageDialog(null, "Error al borrar alumno");
         }
     }
-    //opcional agregar el borrado fisico
-    //obtenerPorLegajo(int d, int h):List<Alumno>,este si nos sobra tiempo
+    
 }
