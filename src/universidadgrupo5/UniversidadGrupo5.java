@@ -51,7 +51,7 @@ public class UniversidadGrupo5 {
         ad.guardarAlumno(miAlumno3);
         Alumno elBuscado = ad.buscarAlumno(12345);
         ad.actualizarAlumno(miActualizado);
-        ad.borrarAlumno(18);
+        ad.borrarAlumno(31);
         List<Alumno> lista = ad.listarAlumno();
         
         

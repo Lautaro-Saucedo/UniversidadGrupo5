@@ -136,7 +136,7 @@ public class AlumnoData {
         
         
         
-        String query = "UPDATE FROM alumno set estado=false WHERE id_alumno=?";
+        String query = "UPDATE alumno set estado=false WHERE id_alumno=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id);
