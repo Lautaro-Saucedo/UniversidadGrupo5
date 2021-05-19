@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import universidadgrupo5.modelo.Alumno;
 import universidadgrupo5.modelo.Conexion;
@@ -145,6 +143,44 @@ public class AlumnoData {
                 //si le mandas insert , retorna la cantidad de filas que agrego
                 //si le mandas delete, retorna la cantidad de filas que borro
                 //si le mandas un update, retorna la cantidad de filas que actualizo
+                JOptionPane.showMessageDialog(null, "Borrado exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null,"El alumno que se desea borrar no existe");
+            }
+            
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al borrar alumno");
+        }
+    }
+    
+    //----------- METODOS PARA VISTAS --------------------
+    
+    public void borrarAlumnoF(long legajo){
+        
+        String query = "DELETE FROM alumno WHERE legajo=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setLong(1, legajo);
+            
+            if(ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "Borrado exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(null,"El alumno que se desea borrar no existe");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al borrar alumno");
+        }
+    }
+    
+    public void borrarAlumnoL(long legajo){
+        //sin uso por ahora
+        String query = "UPDATE alumno SET estado=false WHERE legajo=?";
+        try {
+            PreparedStatement ps = conexion.prepareStatement(query);
+            ps.setLong(1, legajo);
+            if(ps.executeUpdate() == 1){
                 JOptionPane.showMessageDialog(null, "Borrado exitosamente");
             }else{
                 JOptionPane.showMessageDialog(null,"El alumno que se desea borrar no existe");
