@@ -7,6 +7,7 @@ package universidadgrupo5.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.ListSelectionEvent;
@@ -16,9 +17,9 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import universidadgrupo5.modelo.Alumno;
 import universidadgrupo5.vistas.viewListarAlumnos;
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -43,7 +44,6 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
         this.vla=vla;
         this.ad=ad;
         lista = ad.listarAlumno();
-        vla.getJbGuardar().addActionListener(this);
         vla.getJbBorrar().addActionListener(this);
         vla.getJbSalir().addActionListener(this);
         cabecera();
@@ -54,13 +54,14 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == vla.getJbBorrar()){
-            Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
-            ad.borrarAlumnoF(id);
-            model.removeRow(vla.getJtListado().getSelectedRow());
-            vla.getJtListado().setModel(model);
-        }
-        if(ae.getSource() == vla.getJbGuardar()){
-            System.out.println("click en guardar");
+            try {
+                Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
+                ad.borrarAlumnoF(id);
+                model.removeRow(vla.getJtListado().getSelectedRow());
+                vla.getJtListado().setModel(model);
+            } catch (SQLException sqle){
+                JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
+            }
         }
         if (ae.getSource() == vla.getJbSalir()){
             vla.dispose();
@@ -103,22 +104,22 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
             Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),0);
             for (Alumno a:lista){
                 if (a.getLegajo()==id){
-                    if (edit.equals(original)){
-                        
-                    } else {
-                        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                        a.setNombre((String)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),1));
-                        a.setApellido((String)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),2));
-                        String fecha = (String)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),3);
-                        a.setFecha_nac((LocalDate.parse(fecha,dtf)));
-                        a.setEstado((Boolean)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),4));
-                        ad.actualizarAlumno(a);
+                    if (!(edit.equals(original))){
+                        try{
+                            a.setNombre((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 1));
+                            a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
+                            Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
+                            a.setFecha_nac(LocalDate.parse(fecha.toString()));
+                            a.setEstado((Boolean) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4));
+                            ad.actualizarAlumno(a);
+                        } catch (ClassCastException cce){
+                            JOptionPane.showMessageDialog(vla, "Hay datos invalidos en la casilla seleccionada");
+                        } catch (DateTimeParseException dtpe){
+                            JOptionPane.showMessageDialog(vla, "Ingrese fecha valida. el formato es aaaa-mm-dd");
+                        }
                     }
                 }
             }
-            
         }
-    }
-
-        
+    }   
 }

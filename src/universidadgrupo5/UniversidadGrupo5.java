@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package universidadgrupo5;
+
+
 /**
  *
  * @author Laucha
@@ -13,7 +15,6 @@ public class UniversidadGrupo5 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
     }
     
 }

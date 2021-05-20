@@ -156,22 +156,18 @@ public class AlumnoData {
     
     //----------- METODOS PARA VISTAS --------------------
     
-    public void borrarAlumnoF(long legajo){
-        
+    public void borrarAlumnoF(long legajo)throws SQLException {
+        //version modificada para prevenir errores en la vista
         String query = "DELETE FROM alumno WHERE legajo=?";
-        try {
-            PreparedStatement ps = conexion.prepareStatement(query);
-            ps.setLong(1, legajo);
-            
-            if(ps.executeUpdate() == 1){
-                JOptionPane.showMessageDialog(null, "Borrado exitosamente");
-            }else{
-                JOptionPane.showMessageDialog(null,"El alumno que se desea borrar no existe");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al borrar alumno");
+        PreparedStatement ps = conexion.prepareStatement(query);
+        ps.setLong(1, legajo);
+
+        if(ps.executeUpdate() == 1){
+            JOptionPane.showMessageDialog(null, "Borrado exitosamente");
+        }else{
+            JOptionPane.showMessageDialog(null,"El alumno que se desea borrar no existe");
         }
+        ps.close();
     }
     
     public void borrarAlumnoL(long legajo){
