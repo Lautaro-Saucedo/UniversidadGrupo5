@@ -12,8 +12,6 @@ import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +19,6 @@ import universidadgrupo5.modelo.Alumno;
 import universidadgrupo5.vistas.viewListarAlumnos;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -30,12 +27,11 @@ import javax.swing.JPanel;
  *
  * @author Laucha
  */
-public class ctrlAlumno implements ActionListener, ListSelectionListener, TableModelListener, PropertyChangeListener {
+public class ctrlAlumno implements ActionListener, TableModelListener, PropertyChangeListener {
     private viewListarAlumnos vla;
     private AlumnoData ad;
     private List<Alumno> lista = new ArrayList<>();
     private DefaultTableModel model;
-    private Object original=null;
         
     public ctrlAlumno(viewListarAlumnos vla, AlumnoData ad){
         model = new DefaultTableModel(){
@@ -53,7 +49,6 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
         vla.getJdcFecha().addPropertyChangeListener(this);
         cabecera();
         llenarLista();
-        vla.getJtListado().getSelectionModel().addListSelectionListener(this);
     }
     
     @Override
@@ -70,9 +65,6 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
         }
         if (ae.getSource() == vla.getJbSalir()){
             vla.dispose();
-        }
-        if(ae.getSource() == vla.getJdcFecha().getCalendarButton()){
-            
         }
     }
     
@@ -91,14 +83,6 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
             
         }
         
-    }
-
-    @Override
-    public void valueChanged(ListSelectionEvent lse) {
-        if (lse.getValueIsAdjusting()){
-            original = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),vla.getJtListado().getSelectedColumn());
-            System.out.println(original);
-        }
     }
     
     private void cabecera(){
@@ -124,25 +108,16 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
     @Override
     public void tableChanged(TableModelEvent tme) {
         if (vla.getJtListado().getSelectedRow()!=-1 && vla.getJtListado().getSelectedColumn()!=-1 ){
-            String edit = (String)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),vla.getJtListado().getSelectedColumn());
-            
+            Object edit = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),vla.getJtListado().getSelectedColumn());
             Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),0);
             for (Alumno a:lista){
                 if (a.getLegajo()==id){
-                    if (!(edit.equals(original))){
-                        try{
-                            a.setNombre((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 1));
-                            a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
-                            Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
-                            a.setFecha_nac(LocalDate.parse(fecha.toString()));
-                            a.setEstado((Boolean) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4));
-                            ad.actualizarAlumno(a);
-                        } catch (ClassCastException cce){
-                            JOptionPane.showMessageDialog(vla, "Hay datos invalidos en la casilla seleccionada");
-                        } catch (DateTimeParseException dtpe){
-                            JOptionPane.showMessageDialog(vla, "Ingrese fecha valida. el formato es aaaa-mm-dd");
-                        }
-                    }
+                    a.setNombre((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 1));
+                    a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
+                    Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
+                    a.setFecha_nac(LocalDate.parse(fecha.toString()));
+                    a.setEstado((Boolean) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4));
+                    ad.actualizarAlumno(a);
                 }
             }
         }
