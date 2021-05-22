@@ -14,6 +14,7 @@ import universidadgrupo5.modelo.*;
  */
 public class viewMenu extends javax.swing.JFrame {
     private Conexion con = new Conexion();
+    
     private AlumnoData ad = new AlumnoData(con);
     //laucha: aca se agregarian las 2 data restantes
 

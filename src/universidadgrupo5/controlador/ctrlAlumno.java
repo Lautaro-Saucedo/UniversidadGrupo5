@@ -80,8 +80,15 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
     public void propertyChange(PropertyChangeEvent pce) {
         if (!(pce.getNewValue() instanceof JPanel)){
             java.util.Date aux = (java.util.Date) pce.getNewValue();
-            String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-            vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
+            if(aux!=null){
+                
+                String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+                if(vla.getJtListado().getSelectedRow()!=-1){
+                    vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
+                }
+                 
+            }
+            
         }
         
     }
@@ -118,7 +125,7 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
     public void tableChanged(TableModelEvent tme) {
         if (vla.getJtListado().getSelectedRow()!=-1 && vla.getJtListado().getSelectedColumn()!=-1 ){
             String edit = (String)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),vla.getJtListado().getSelectedColumn());
-            String nomcol = (String) vla.getJtListado().getColumnName(vla.getJtListado().getSelectedColumn());
+            
             Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),0);
             for (Alumno a:lista){
                 if (a.getLegajo()==id){
