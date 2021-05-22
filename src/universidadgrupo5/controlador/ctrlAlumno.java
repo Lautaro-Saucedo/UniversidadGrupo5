@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -7,6 +7,8 @@ package universidadgrupo5.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +20,17 @@ import javax.swing.table.DefaultTableModel;
 import universidadgrupo5.modelo.Alumno;
 import universidadgrupo5.vistas.viewListarAlumnos;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 /**
  *
  * @author Laucha
  */
-public class ctrlAlumno implements ActionListener, ListSelectionListener, TableModelListener {
+public class ctrlAlumno implements ActionListener, ListSelectionListener, TableModelListener, PropertyChangeListener {
     private viewListarAlumnos vla;
     private AlumnoData ad;
     private List<Alumno> lista = new ArrayList<>();
@@ -37,7 +41,7 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
         model = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column){
-                return !(column == 0 || column == 4);
+                return !(column == 0 || column == 3 || column==4);
             }
         };
         model.addTableModelListener(this);
@@ -46,6 +50,7 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
         lista = ad.listarAlumno();
         vla.getJbBorrar().addActionListener(this);
         vla.getJbSalir().addActionListener(this);
+        vla.getJdcFecha().addPropertyChangeListener(this);
         cabecera();
         llenarLista();
         vla.getJtListado().getSelectionModel().addListSelectionListener(this);
@@ -66,6 +71,19 @@ public class ctrlAlumno implements ActionListener, ListSelectionListener, TableM
         if (ae.getSource() == vla.getJbSalir()){
             vla.dispose();
         }
+        if(ae.getSource() == vla.getJdcFecha().getCalendarButton()){
+            
+        }
+    }
+    
+    @Override
+    public void propertyChange(PropertyChangeEvent pce) {
+        if (!(pce.getNewValue() instanceof JPanel)){
+            java.util.Date aux = (java.util.Date) pce.getNewValue();
+            String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+            vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
+        }
+        
     }
 
     @Override
