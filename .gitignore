@@ -19,6 +19,7 @@ nbproject/*
 
 # Package Files #
 *.jar
+!jcalendar-1.4.jar
 *.war
 *.nar
 *.ear
