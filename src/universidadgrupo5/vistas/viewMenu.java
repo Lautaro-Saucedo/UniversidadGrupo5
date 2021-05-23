@@ -16,6 +16,7 @@ public class viewMenu extends javax.swing.JFrame {
     private Conexion con = new Conexion();
     
     private AlumnoData ad = new AlumnoData(con);
+    private MateriaData md= new MateriaData(con);
     //laucha: aca se agregarian las 2 data restantes
 
     /**
@@ -67,6 +68,11 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu1.add(jmiAgregarMateria);
 
         jmiListarMaterias.setText("Listar Materias");
+        jmiListarMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiListarMateriasActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmiListarMaterias);
 
         jMenuBar1.add(jMenu1);
@@ -130,6 +136,15 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vla);
         vla.setVisible(true);
     }//GEN-LAST:event_jmiListarAlumnosActionPerformed
+
+    private void jmiListarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiListarMateriasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewListarMaterias vlm = new viewListarMaterias();
+        ctrlMateria cm = new ctrlMateria(vlm,md);
+        escritorio.add(vlm);
+        vlm.setVisible(true);
+    }//GEN-LAST:event_jmiListarMateriasActionPerformed
 
     /**
      * @param args the command line arguments

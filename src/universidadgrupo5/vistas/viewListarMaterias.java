@@ -5,6 +5,12 @@
  */
 package universidadgrupo5.vistas;
 
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
 /**
  *
  * @author br1st
@@ -30,7 +36,7 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListado = new javax.swing.JTable();
         jbBorrar = new javax.swing.JButton();
-        jbGuardar = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jtListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -49,8 +55,13 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
         jbBorrar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbBorrar.setText("Borrar");
 
-        jbGuardar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jbGuardar.setText("Guardar Cambios");
+        jbSalir.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setText("Lista de Materias");
@@ -59,45 +70,63 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jbBorrar)
                         .addGap(81, 81, 81)
-                        .addComponent(jbGuardar))
+                        .addComponent(jbSalir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(198, 198, 198)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbBorrar)
-                    .addComponent(jbGuardar))
+                    .addComponent(jbSalir))
                 .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+    
+    
+    public JButton getJbBorrar() {
+        return jbBorrar;
+    }
+
+    public JButton getJbGuardar() {
+        return jbSalir;
+    }
+
+    
+    public JTable getJtListado() {
+        return jtListado;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBorrar;
-    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbSalir;
     private javax.swing.JTable jtListado;
     // End of variables declaration//GEN-END:variables
 }

@@ -94,10 +94,14 @@ public class MateriaData {
             ps.setString(1,m.getNombre_materia());
             ps.setInt(2,m.getAnio());
             ps.setInt(3, m.getId_materia());
-            ps.executeUpdate();
+            if(ps.executeUpdate() == 1){
+                JOptionPane.showMessageDialog(null, "La materia se modificó correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se actualizo la materia");
+            }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al actualizar materia");
         } 
     }
  
