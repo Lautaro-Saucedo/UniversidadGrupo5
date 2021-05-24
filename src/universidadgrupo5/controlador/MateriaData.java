@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package universidadgrupo5.controlador;
 
 import java.sql.Connection;
@@ -12,12 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import universidadgrupo5.modelo.Conexion;
 import universidadgrupo5.modelo.Materia;
-
 /**
  *
  * @author Laucha
@@ -38,11 +30,15 @@ public class MateriaData {
             ps.setBoolean(3, m.getEstado());
             ps.executeQuery();
             ResultSet rs=ps.getGeneratedKeys();
-            rs.next();
-            m.setId_materia(rs.getInt(1));
+            if (rs.next()){
+                m.setId_materia(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Materia guardada con exito.");
+            } else{
+                JOptionPane.showMessageDialog(null, "Error al guardar la materia.");
+            }
             ps.close();
         } catch (SQLException ex) {
-            Logger.getLogger(MateriaData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error de conexion.");
         }
     }
     
@@ -75,11 +71,14 @@ public class MateriaData {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            aux.setId_materia(rs.getInt(1));
-            aux.setNombre_materia(rs.getString(2));
-            aux.setAnio(rs.getInt(3));
-            aux.setEstado(rs.getBoolean(4));
+            if(rs.next()){
+                aux.setId_materia(rs.getInt(1));
+                aux.setNombre_materia(rs.getString(2));
+                aux.setAnio(rs.getInt(3));
+                aux.setEstado(rs.getBoolean(4));
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe una materia con ese ID.");
+            }
             ps.close();
         } catch (SQLException sqle){
             JOptionPane.showMessageDialog(null, "Error de conexion.");
@@ -111,10 +110,14 @@ public class MateriaData {
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
-            ps.executeUpdate();
+            if (ps.executeUpdate()==1){
+                JOptionPane.showMessageDialog(null, "Borrado con exito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "La materia que intenta borrar no existe.");
+            }
             ps.close();
         } catch (SQLException sqle){
-            JOptionPane.showMessageDialog(null, "Error de conexion.");
+            JOptionPane.showMessageDialog(null, "Error al borrar. Asegúrese de que la materia no tenga ningun alumno inscripto antes de intentar eliminarla permanentemente.");
         }
     }
     
@@ -123,7 +126,28 @@ public class MateriaData {
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
-            ps.executeUpdate();
+            if (ps.executeUpdate()==1){
+                JOptionPane.showMessageDialog(null, "Materia deshabilitada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "La materia que intenta actualizar no existe.");
+            }
+            ps.close();
+        } catch (SQLException sqle){
+            JOptionPane.showMessageDialog(null, "Error de conexion.");
+        }
+        
+    }
+    
+    public void restaurarMateria(int id){
+        String query = "UPDATE materia SET estado=true WHERE id_materia=?";
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            if (ps.executeUpdate()==1){
+                JOptionPane.showMessageDialog(null, "Materia habilitada.");
+            } else {
+                JOptionPane.showMessageDialog(null, "La materia que intenta actualizar no existe.");
+            }
             ps.close();
         } catch (SQLException sqle){
             JOptionPane.showMessageDialog(null, "Error de conexion.");

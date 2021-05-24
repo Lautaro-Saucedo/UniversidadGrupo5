@@ -29,6 +29,9 @@ public class CursadaData {
             ps.setInt(2,cursada.getId_materia().getId_materia());
             ps.setDouble(3,cursada.getNota());
             ps.execute();
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            cursada.setId_cursada(rs.getInt(1));
             ps.close();
         }catch(SQLException ex){
             JOptionPane.showInputDialog(null,"No se pudo inscribir");
@@ -50,12 +53,12 @@ public class CursadaData {
                 aux.setId_alumno(alu);
                 mat.setId_materia(rs.getInt("id_materia"));
                 aux.setId_materia(mat);
-                aux.setNota(rs.getInt("nota"));
+                aux.setNota(rs.getDouble("nota"));
                 lista.add(aux);
             }
             ps.close();
         } catch (SQLException sqle){
-            JOptionPane.showMessageDialog(null, "No se pudo ostener cursadas");
+            JOptionPane.showMessageDialog(null, "No se pudo obtener cursadas");
         }
         return lista;
     }
@@ -76,7 +79,7 @@ public class CursadaData {
                 aux.setId_alumno(alu);
                 mat.setId_materia(rs.getInt("id_materia"));
                 aux.setId_materia(mat);
-                aux.setNota(rs.getInt("nota"));
+                aux.setNota(rs.getDouble("nota"));
                 lista.add(aux);
             }
             ps.close();
