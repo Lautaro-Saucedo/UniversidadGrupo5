@@ -5,6 +5,10 @@
  */
 package universidadgrupo5.vistas;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
+
 /**
  *
  * @author br1st
@@ -53,6 +57,7 @@ public class viewAgregarMateria extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setText("Año:");
 
+        jtCodigo.setEditable(false);
         jtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtCodigoActionPerformed(evt);
@@ -64,6 +69,11 @@ public class viewAgregarMateria extends javax.swing.JInternalFrame {
 
         jbAgregar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbAgregar.setText("Agregar");
+        jbAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAgregarActionPerformed(evt);
+            }
+        });
 
         jbLimpiar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jbLimpiar.setText("Limpiar");
@@ -145,6 +155,34 @@ public class viewAgregarMateria extends javax.swing.JInternalFrame {
     private void jtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtCodigoActionPerformed
+
+    public JButton getJbAgregar() {
+        return jbAgregar;
+    }
+
+    public JButton getJbLimpiar() {
+        return jbLimpiar;
+    }
+
+    public JCheckBox getJcbEstado() {
+        return jcbEstado;
+    }
+
+    public JTextField getJtAgno() {
+        return jtAgno;
+    }
+
+    public JTextField getJtCodigo() {
+        return jtCodigo;
+    }
+
+    public JTextField getJtNombre() {
+        return jtNombre;
+    }
+
+    private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
+        // TODO add your handling code here:             
+    }//GEN-LAST:event_jbAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

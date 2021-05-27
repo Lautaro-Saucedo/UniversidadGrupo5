@@ -65,6 +65,11 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu1.setText("Materias");
 
         jmiAgregarMateria.setText("Agregar Materia");
+        jmiAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAgregarMateriaActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmiAgregarMateria);
 
         jmiListarMaterias.setText("Listar Materias");
@@ -145,6 +150,15 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vlm);
         vlm.setVisible(true);
     }//GEN-LAST:event_jmiListarMateriasActionPerformed
+
+    private void jmiAgregarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarMateriaActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewAgregarMateria vam = new viewAgregarMateria();
+        ctrlMateria cm = new ctrlMateria(vam,md);
+        escritorio.add(vam);
+        vam.setVisible(true);
+    }//GEN-LAST:event_jmiAgregarMateriaActionPerformed
 
     /**
      * @param args the command line arguments
