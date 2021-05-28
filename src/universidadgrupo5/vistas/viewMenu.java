@@ -86,6 +86,11 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu2.setText("Alumnos");
 
         jmiAgregarAlumno.setText("Agregar Alumno");
+        jmiAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAgregarAlumnoActionPerformed(evt);
+            }
+        });
         jMenu2.add(jmiAgregarAlumno);
 
         jmiListarAlumnos.setText("Listar Alumnos");
@@ -135,10 +140,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewListarAlumnos vla = new viewListarAlumnos();
-        //creo que esta es la forma en la que se trabaja con los controles
         ctrlAlumno ca = new ctrlAlumno(vla,ad);
-        // se le pasa la vista a un controlador con los listeners apropiados, y toda la magica
-        // ocurre ahi adentro, tengo que preguntarle al profe
         escritorio.add(vla);
         vla.setVisible(true);
     }//GEN-LAST:event_jmiListarAlumnosActionPerformed
@@ -160,6 +162,15 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vam);
         vam.setVisible(true);
     }//GEN-LAST:event_jmiAgregarMateriaActionPerformed
+
+    private void jmiAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarAlumnoActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewAgregarAlumno val = new viewAgregarAlumno();
+        ctrlAlumno ca = new ctrlAlumno(val, ad);
+        escritorio.add(val);
+        val.setVisible(true);
+    }//GEN-LAST:event_jmiAgregarAlumnoActionPerformed
 
     /**
      * @param args the command line arguments

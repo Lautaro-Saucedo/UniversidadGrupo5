@@ -5,6 +5,11 @@
  */
 package universidadgrupo5.vistas;
 
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Laucha
@@ -41,6 +46,7 @@ public class viewAgregarAlumno extends javax.swing.JInternalFrame {
         jlId4 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
+        setClosable(true);
         setTitle("Agregar Alumno");
 
         jbAgregar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -138,7 +144,36 @@ public class viewAgregarAlumno extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public JDateChooser getjDateChooser1() {
+        return jDateChooser1;
+    }
 
+    public JButton getJbAgregar() {
+        return jbAgregar;
+    }
+
+    public JButton getJbLimpiar() {
+        return jbLimpiar;
+    }
+
+    public JCheckBox getJcbEstado() {
+        return jcbEstado;
+    }
+
+    public JTextField getJtfApellido() {
+        return jtfApellido;
+    }
+
+    public JTextField getJtfLegajo() {
+        return jtfLegajo;
+    }
+
+    public JTextField getJtfNombre() {
+        return jtfNombre;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser jDateChooser1;

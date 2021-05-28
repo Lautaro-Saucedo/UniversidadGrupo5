@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import universidadgrupo5.vistas.viewAgregarAlumno;
 
 
 /**
@@ -29,9 +30,11 @@ import javax.swing.JPanel;
  */
 public class ctrlAlumno implements ActionListener, TableModelListener, PropertyChangeListener {
     private viewListarAlumnos vla;
+    private viewAgregarAlumno val;
     private AlumnoData ad;
     private List<Alumno> lista = new ArrayList<>();
     private DefaultTableModel model;
+    private int tipo=0;
         
     public ctrlAlumno(viewListarAlumnos vla, AlumnoData ad){
         model = new DefaultTableModel(){
@@ -49,22 +52,47 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
         vla.getJdcFecha().addPropertyChangeListener(this);
         cabecera();
         llenarLista();
+        tipo=1;
+    }
+    
+    public ctrlAlumno (viewAgregarAlumno val, AlumnoData ad){
+        this.val=val;
+        this.ad=ad;
+        val.getJbAgregar().addActionListener(this);
+        val.getJbLimpiar().addActionListener(this);
+        tipo=2;
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == vla.getJbBorrar()){
-            try {
-                Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
-                ad.borrarAlumnoF(id);
-                model.removeRow(vla.getJtListado().getSelectedRow());
-                vla.getJtListado().setModel(model);
-            } catch (SQLException sqle){
-                JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
+        switch (tipo){
+            // ---------- botones de viewListarAlumnos ----------------
+            case 1:{
+                if (ae.getSource() == vla.getJbBorrar()){
+                    try {
+                    Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
+                    ad.borrarAlumnoF(id);
+                    model.removeRow(vla.getJtListado().getSelectedRow());
+                    vla.getJtListado().setModel(model);
+                    } catch (SQLException sqle){
+                        JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
+                    }
+                }
+                if (ae.getSource() == vla.getJbSalir()){
+                    vla.dispose();
+                }
+                break;
             }
-        }
-        if (ae.getSource() == vla.getJbSalir()){
-            vla.dispose();
+            // ------------ botones de viewAgregarAlumno -------------
+            case 2:{
+                if (ae.getSource() == val.getJbAgregar()){
+                    System.out.println("click en agregar");
+                }
+                if (ae.getSource() == val.getJbLimpiar()){
+                    System.out.println("click en limpiar");
+                }
+                break;
+            }
         }
     }
     
