@@ -33,8 +33,6 @@ public class MateriaData {
             if (rs.next()){
                 m.setId_materia(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Materia guardada con exito.");
-            } else{
-                JOptionPane.showMessageDialog(null, "Error al guardar la materia.");
             }
             ps.close();
         } catch (SQLException ex) {
@@ -95,8 +93,6 @@ public class MateriaData {
             ps.setInt(3, m.getId_materia());
             if(ps.executeUpdate() == 1){
                 JOptionPane.showMessageDialog(null, "La materia se modificó correctamente");
-            }else{
-                JOptionPane.showMessageDialog(null, "No se actualizo la materia");
             }
             ps.close();
         } catch (SQLException ex) {
