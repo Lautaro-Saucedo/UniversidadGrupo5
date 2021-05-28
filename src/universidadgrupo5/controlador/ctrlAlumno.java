@@ -19,6 +19,7 @@ import universidadgrupo5.modelo.Alumno;
 import universidadgrupo5.vistas.viewListarAlumnos;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import universidadgrupo5.vistas.viewAgregarAlumno;
@@ -30,11 +31,11 @@ import universidadgrupo5.vistas.viewAgregarAlumno;
  */
 public class ctrlAlumno implements ActionListener, TableModelListener, PropertyChangeListener {
     private viewListarAlumnos vla;
-    private viewAgregarAlumno val;
+    private viewAgregarAlumno vaa;
     private AlumnoData ad;
     private List<Alumno> lista = new ArrayList<>();
     private DefaultTableModel model;
-    private int tipo=0;
+    private HashMap<Object,Integer> fuente = new HashMap<>();
         
     public ctrlAlumno(viewListarAlumnos vla, AlumnoData ad){
         model = new DefaultTableModel(){
@@ -48,49 +49,59 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
         this.ad=ad;
         lista = ad.listarAlumno();
         vla.getJbBorrar().addActionListener(this);
-        vla.getJbSalir().addActionListener(this);
+        vla.getJbEstado().addActionListener(this);
         vla.getJdcFecha().addPropertyChangeListener(this);
+        fuente.put(vla.getJbBorrar(), 1);
+        fuente.put(vla.getJbEstado(), 2);
         cabecera();
         llenarLista();
-        tipo=1;
     }
     
-    public ctrlAlumno (viewAgregarAlumno val, AlumnoData ad){
-        this.val=val;
+    public ctrlAlumno (viewAgregarAlumno vaa, AlumnoData ad){
+        this.vaa=vaa;
         this.ad=ad;
-        val.getJbAgregar().addActionListener(this);
-        val.getJbLimpiar().addActionListener(this);
-        tipo=2;
+        vaa.getJbAgregar().addActionListener(this);
+        vaa.getJbLimpiar().addActionListener(this);
+        vaa.getJtfFecha().addPropertyChangeListener(this);
+        fuente.put(vaa.getJbAgregar(),3);
+        fuente.put(vaa.getJbLimpiar(),4);
+        
     }
     
     @Override
     public void actionPerformed(ActionEvent ae) {
-        switch (tipo){
+        switch (fuente.get(ae.getSource())){
             // ---------- botones de viewListarAlumnos ----------------
             case 1:{
-                if (ae.getSource() == vla.getJbBorrar()){
-                    try {
+                try {
                     Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
                     ad.borrarAlumnoF(id);
                     model.removeRow(vla.getJtListado().getSelectedRow());
                     vla.getJtListado().setModel(model);
-                    } catch (SQLException sqle){
-                        JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
-                    }
+                } catch (SQLException sqle){
+                    JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
                 }
-                if (ae.getSource() == vla.getJbSalir()){
-                    vla.dispose();
+                break;
+            }
+            case 2:{
+                try {
+                    if ((Boolean)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4)){
+                        ad.borrarAlumnoLogico((Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
+                    } else {
+                        ad.restaurarAlumno((Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
+                    }
+                } catch (Exception e){
+                    
                 }
                 break;
             }
             // ------------ botones de viewAgregarAlumno -------------
-            case 2:{
-                if (ae.getSource() == val.getJbAgregar()){
-                    System.out.println("click en agregar");
-                }
-                if (ae.getSource() == val.getJbLimpiar()){
-                    System.out.println("click en limpiar");
-                }
+            case 3:{
+                System.out.println("click en agregar");
+                break;
+            }
+            case 4:{
+                System.out.println("click en limpiar");
                 break;
             }
         }
@@ -106,11 +117,8 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
                 if(vla.getJtListado().getSelectedRow()!=-1){
                     vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
                 }
-                 
             }
-            
         }
-        
     }
     
     private void cabecera(){
@@ -144,7 +152,6 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
                     a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
                     Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
                     a.setFecha_nac(LocalDate.parse(fecha.toString()));
-                    a.setEstado((Boolean) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4));
                     ad.actualizarAlumno(a);
                 }
             }

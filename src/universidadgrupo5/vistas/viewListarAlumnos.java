@@ -35,13 +35,14 @@ public class viewListarAlumnos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtListado = new javax.swing.JTable();
         jbBorrar = new javax.swing.JButton();
-        jbSalir = new javax.swing.JButton();
+        jbEstado = new javax.swing.JButton();
         jdcFecha = new com.toedter.calendar.JDateChooser();
         jlTitulo1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
+        setClosable(true);
         setTitle("Listado de Alumnos");
 
         jtListado.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -67,8 +68,10 @@ public class viewListarAlumnos extends javax.swing.JInternalFrame {
         jbBorrar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbBorrar.setText("Borrar");
 
-        jbSalir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jbSalir.setText("Salir");
+        jbEstado.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jbEstado.setText("Cambiar Estado");
+
+        jdcFecha.setDateFormatString("yyyy-mm-dd");
 
         jlTitulo1.setFont(new java.awt.Font("Verdana", 1, 22)); // NOI18N
         jlTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -83,15 +86,15 @@ public class viewListarAlumnos extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbEstado))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jlTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(121, 121, 121)
-                                .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -112,7 +115,7 @@ public class viewListarAlumnos extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalir)
+                    .addComponent(jbEstado)
                     .addComponent(jbBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(48, 48, 48))
         );
@@ -128,8 +131,8 @@ public class viewListarAlumnos extends javax.swing.JInternalFrame {
         return jtListado;
     }
 
-    public JButton getJbSalir() {
-        return jbSalir;
+    public JButton getJbEstado() {
+        return jbEstado;
     }
 
     public JDateChooser getJdcFecha() {
@@ -140,7 +143,7 @@ public class viewListarAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBorrar;
-    private javax.swing.JButton jbSalir;
+    private javax.swing.JButton jbEstado;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel jlTitulo1;
     private javax.swing.JTable jtListado;
