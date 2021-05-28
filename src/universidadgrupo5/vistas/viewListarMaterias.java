@@ -132,7 +132,7 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
         return jbBorrar;
     }
 
-    public JButton getJbGuardar() {
+    public JButton getJbSalir() {
         return jbSalir;
     }
 

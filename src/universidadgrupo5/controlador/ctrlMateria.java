@@ -9,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,6 +32,7 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
     private MateriaData md;
     private List<Materia> listaMaterias = new ArrayList<>();
     private DefaultTableModel tablaMaterias;
+    private HashMap<Object,Integer> enumFuente = new HashMap<>();
 
     public ctrlMateria(viewListarMaterias vlm, MateriaData md) {
         this.vlm = vlm;
@@ -44,7 +47,9 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         tablaMaterias.addTableModelListener(this);
         listaMaterias = md.listarMaterias(); //ver que pasa cuando la lista que retorna esta vacia
         vlm.getJbBorrar().addActionListener(this);
-        vlm.getJbGuardar().addActionListener(this);
+        vlm.getJbSalir().addActionListener(this);
+        enumFuente.put(vlm.getJbBorrar(), 1);
+        enumFuente.put(vlm.getJbSalir(), 2);
         cabeceraTabla();
         contenidoTabla();
     }
@@ -55,6 +60,8 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         listaMaterias = md.listarMaterias();
         vam.getJbAgregar().addActionListener(this);
         vam.getJbLimpiar().addActionListener(this);
+        enumFuente.put(vam.getJbAgregar(),3);
+        enumFuente.put(vam.getJbLimpiar(),4);
     }
     
     
@@ -62,37 +69,44 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == vlm.getJbBorrar()){           
-            int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0);
-            md.borrarMateriaF(id);
-            tablaMaterias.removeRow(vlm.getJtListado().getSelectedRow());
-            vlm.getJtListado().setModel(tablaMaterias);         
-        }
-        
-        if (ae.getSource() == vam.getJbAgregar()){
-            try{
+        //un switch para ver que boton desencadena el evento
+        switch(enumFuente.get(ae.getSource())){//le paso el objeto del evento como clave a mi map
+            // ---------------- botones de viewListarMaterias ---------------------
+            case 1:{//boton borrar
+                //no le puse un try catch xq ya esta en el metodo de materia data
+                int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0);//recupero el id de la fila seleccionada
+                md.borrarMateriaF(id);
+                tablaMaterias.removeRow(vlm.getJtListado().getSelectedRow());
+                vlm.getJtListado().setModel(tablaMaterias);
+                break;              
+            }
+            case 2:{//boton salir
+                vlm.dispose();
+                break;
+            }
+            // --------------- botones de viewAgregarMateria --------------------
+            case 3:{//boton agregar
+                try{
                 String nombre_materia = vam.getJtNombre().getText();
-                int agno = Integer.parseInt(vam.getJtAgno().getText());//me falta el try aca
+                int agno = Integer.parseInt(vam.getJtAgno().getText());
                 boolean estado = vam.getJcbEstado().isSelected();
-                if(!nombre_materia.isEmpty()){
-                    Materia nuevaMateria = new Materia(nombre_materia,agno,estado);
-                    md.guardarMateria(nuevaMateria);//materia data se va a encargar de setearle el id, me faltaria recuperarlo para mostrarlo en el jtfield correspondiente
-                    vam.getJtCodigo().setText(nuevaMateria.getId_materia()+"");//muestro el id
-                    listaMaterias.add(nuevaMateria);//esta parte no se si es necesaria
-                }else{
-                    JOptionPane.showMessageDialog(vam, "Falta el nombre de la materia");
-                } 
-            }catch(NumberFormatException nfe){
-                JOptionPane.showMessageDialog(vam, "El formato del año de la carrera debe ser numerico");//faltaria agregarle tambien el rango, tal vez de 1-5 o 1-3 dependiendo la carrera
-            }           
-        }
-        
-        if(ae.getSource() == vam.getJbLimpiar()){
-            vam.getJtCodigo().setText("");
-            vam.getJtNombre().setText("");
-            vam.getJtAgno().setText("");
-        }
-        
+                    if(!nombre_materia.isEmpty()){
+                        Materia nuevaMateria = new Materia(nombre_materia,agno,estado);
+                        md.guardarMateria(nuevaMateria);//materia data se va a encargar de setearle el id, me faltaria recuperarlo para mostrarlo en el jtfield correspondiente
+                        vam.getJtCodigo().setText(nuevaMateria.getId_materia()+"");//muestro el id
+                    }else{
+                        JOptionPane.showMessageDialog(vam, "Falta el nombre de la materia");
+                    } 
+                }catch(NumberFormatException nfe){
+                    JOptionPane.showMessageDialog(vam, "El formato del año de la carrera debe ser numerico");//faltaria agregarle tambien el rango, tal vez de 1-5 o 1-3 dependiendo la carrera
+                }
+            }
+            case 4:{//boton limpiar
+                vam.getJtCodigo().setText("");
+                vam.getJtNombre().setText("");
+                vam.getJtAgno().setText("");               
+            }
+        }           
     }
 
     @Override
