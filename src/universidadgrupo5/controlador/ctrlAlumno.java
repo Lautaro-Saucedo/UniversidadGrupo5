@@ -1,4 +1,4 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -19,142 +19,180 @@ import universidadgrupo5.modelo.Alumno;
 import universidadgrupo5.vistas.viewListarAlumnos;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import universidadgrupo5.vistas.viewAgregarAlumno;
-
 
 /**
  *
  * @author Laucha
  */
 public class ctrlAlumno implements ActionListener, TableModelListener, PropertyChangeListener {
+
     private viewListarAlumnos vla;
     private viewAgregarAlumno vaa;
     private AlumnoData ad;
     private List<Alumno> lista = new ArrayList<>();
     private DefaultTableModel model;
-    private HashMap<Object,Integer> fuente = new HashMap<>();
-        
-    public ctrlAlumno(viewListarAlumnos vla, AlumnoData ad){
-        model = new DefaultTableModel(){
+    private HashMap<Object, Integer> fuente = new HashMap<>();
+
+    public ctrlAlumno(viewListarAlumnos vla, AlumnoData ad) {
+        model = new DefaultTableModel() {
             @Override
-            public boolean isCellEditable(int row, int column){
-                return !(column == 0 || column == 3 || column==4);
+            public boolean isCellEditable(int row, int column) {
+                return !(column == 0 || column == 3 || column == 4);
             }
         };
         model.addTableModelListener(this);
-        this.vla=vla;
-        this.ad=ad;
+        this.vla = vla;
+        this.ad = ad;
         lista = ad.listarAlumno();
         vla.getJbBorrar().addActionListener(this);
         vla.getJbEstado().addActionListener(this);
         vla.getJdcFecha().addPropertyChangeListener(this);
         fuente.put(vla.getJbBorrar(), 1);
         fuente.put(vla.getJbEstado(), 2);
+        fuente.put(vla.getJdcFecha(), 3);
         cabecera();
         llenarLista();
     }
-    
-    public ctrlAlumno (viewAgregarAlumno vaa, AlumnoData ad){
-        this.vaa=vaa;
-        this.ad=ad;
+
+    public ctrlAlumno(viewAgregarAlumno vaa, AlumnoData ad) {
+        this.vaa = vaa;
+        this.ad = ad;
         vaa.getJbAgregar().addActionListener(this);
         vaa.getJbLimpiar().addActionListener(this);
-        vaa.getJtfFecha().addPropertyChangeListener(this);
-        fuente.put(vaa.getJbAgregar(),3);
-        fuente.put(vaa.getJbLimpiar(),4);
-        
+        vaa.getJdcFecha().addPropertyChangeListener(this);
+        fuente.put(vaa.getJbAgregar(), 4);
+        fuente.put(vaa.getJbLimpiar(), 5);
+        fuente.put(vaa.getJdcFecha(), 6);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent ae) {
-        switch (fuente.get(ae.getSource())){
+        switch (fuente.get(ae.getSource())) {
             // ---------- botones de viewListarAlumnos ----------------
-            case 1:{
+            case 1: {
                 try {
-                    Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
+                    Long id = (Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
                     ad.borrarAlumnoF(id);
                     model.removeRow(vla.getJtListado().getSelectedRow());
                     vla.getJtListado().setModel(model);
-                } catch (SQLException sqle){
+                } catch (SQLException sqle) {
                     JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
                 }
                 break;
             }
-            case 2:{
+            case 2: {
                 try {
-                    if ((Boolean)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4)){
-                        ad.borrarAlumnoLogico((Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
+                    if ((Boolean) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4)) {
+                        ad.borrarAlumnoLogico((Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
+                        vla.getJtListado().setValueAt(false, vla.getJtListado().getSelectedRow(), 4);
                     } else {
-                        ad.restaurarAlumno((Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
+                        ad.restaurarAlumno((Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
+                        vla.getJtListado().setValueAt(true, vla.getJtListado().getSelectedRow(), 4);
                     }
-                } catch (Exception e){
-                    
+                } catch (Exception e) {
+
                 }
                 break;
             }
             // ------------ botones de viewAgregarAlumno -------------
-            case 3:{
-                System.out.println("click en agregar");
+            case 4: {
+                try {
+                    if (vaa.getJtfApellido().getText().equals("") || vaa.getJtfNombre().getText().equals("")) {
+                        JOptionPane.showMessageDialog(null, "Error. Nombre/Apellido no puede estar en blanco.");
+                    } else {
+                        Alumno a = new Alumno();
+                        a.setLegajo(Long.parseLong(vaa.getJtfLegajo().getText()));
+                        a.setNombre(vaa.getJtfNombre().getText());
+                        a.setApellido(vaa.getJtfApellido().getText());
+                        a.setFecha_nac(LocalDate.parse(vaa.getJtfFecha().getText()));
+                        a.setEstado(vaa.getJcbEstado().isSelected());
+                        ad.guardarAlumno(a);
+                    }
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "Error. Legajo solo puede contener numeros.");
+                } catch (DateTimeParseException dpe) {
+                    JOptionPane.showMessageDialog(null, "Error. Fecha de nacimiento no puede estar en blanco");
+                }
                 break;
             }
-            case 4:{
-                System.out.println("click en limpiar");
+            case 5: {
+                vaa.getJtfLegajo().setText("");
+                vaa.getJtfNombre().setText("");
+                vaa.getJtfApellido().setText("");
+                vaa.getJtfFecha().setText("");
+                vaa.getJcbEstado().setSelected(false);
                 break;
             }
         }
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        if (!(pce.getNewValue() instanceof JPanel)){
-            java.util.Date aux = (java.util.Date) pce.getNewValue();
-            if(aux!=null){
-                
-                String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-                if(vla.getJtListado().getSelectedRow()!=-1){
-                    vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
+        if (!(pce.getNewValue() instanceof JPanel)) {
+            switch (fuente.get(pce.getSource())) {
+                case 3: {
+                    java.util.Date aux = (java.util.Date) pce.getNewValue();
+                    if (aux != null) {
+                        String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+                        if (vla.getJtListado().getSelectedRow() != -1) {
+                            vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
+                        }
+                    }
+                    break;
+                }
+                case 6: {
+                    java.util.Date aux = (java.util.Date) pce.getNewValue();
+                    if (aux != null) {
+                        String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
+                        vaa.getJtfFecha().setText(aux2);
+                    }
+                    break;
                 }
             }
         }
     }
-    
-    private void cabecera(){
+
+    private void cabecera() {
         ArrayList<Object> c = new ArrayList<>();
         c.add("Legajo");
         c.add("Nombre");
         c.add("Apellido");
         c.add("Fecha de Nacimiento");
         c.add("Estado");
-        for (Object a:c){
+        for (Object a : c) {
             model.addColumn(a);
         }
         vla.getJtListado().setModel(model);
     }
-    
-    private void llenarLista(){
-        for (Alumno a:lista){
-            model.addRow(new Object[]{a.getLegajo(),a.getNombre(),a.getApellido(),a.getFecha_nac(),a.isEstado()});
+
+    private void llenarLista() {
+        for (Alumno a : lista) {
+            model.addRow(new Object[]{a.getLegajo(), a.getNombre(), a.getApellido(), a.getFecha_nac(), a.isEstado()});
         }
         vla.getJtListado().setModel(model);
     }
 
     @Override
     public void tableChanged(TableModelEvent tme) {
-        if (vla.getJtListado().getSelectedRow()!=-1 && vla.getJtListado().getSelectedColumn()!=-1 ){
-            Object edit = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),vla.getJtListado().getSelectedColumn());
-            Long id = (Long)vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(),0);
-            for (Alumno a:lista){
-                if (a.getLegajo()==id){
-                    a.setNombre((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 1));
-                    a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
-                    Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
-                    a.setFecha_nac(LocalDate.parse(fecha.toString()));
-                    ad.actualizarAlumno(a);
+        if (vla.getJtListado().getSelectedRow() != -1 && vla.getJtListado().getSelectedColumn() != -1) {
+            if (!(tme.getColumn() == 4)) {
+                Object edit = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), vla.getJtListado().getSelectedColumn());
+                Long id = (Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
+                for (Alumno a : lista) {
+                    if (a.getLegajo() == id) {
+                        a.setNombre((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 1));
+                        a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
+                        Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
+                        a.setFecha_nac(LocalDate.parse(fecha.toString()));
+                        ad.actualizarAlumno(a);
+                    }
                 }
             }
         }
-    }   
+    }
 }
