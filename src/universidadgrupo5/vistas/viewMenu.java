@@ -166,10 +166,10 @@ public class viewMenu extends javax.swing.JFrame {
     private void jmiAgregarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarAlumnoActionPerformed
         escritorio.removeAll();
         escritorio.repaint();
-        viewAgregarAlumno val = new viewAgregarAlumno();
-        ctrlAlumno ca = new ctrlAlumno(val, ad);
-        escritorio.add(val);
-        val.setVisible(true);
+        viewAgregarAlumno vaa = new viewAgregarAlumno();
+        ctrlAlumno ca = new ctrlAlumno(vaa, ad);
+        escritorio.add(vaa);
+        vaa.setVisible(true);
     }//GEN-LAST:event_jmiAgregarAlumnoActionPerformed
 
     /**
