@@ -116,6 +116,11 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu4.setText("Salir");
 
         jmiSalir.setText("Salir");
+        jmiSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiSalirActionPerformed(evt);
+            }
+        });
         jMenu4.add(jmiSalir);
 
         jMenuBar1.add(jMenu4);
@@ -171,6 +176,11 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.add(vaa);
         vaa.setVisible(true);
     }//GEN-LAST:event_jmiAgregarAlumnoActionPerformed
+
+    private void jmiSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jmiSalirActionPerformed
 
     /**
      * @param args the command line arguments

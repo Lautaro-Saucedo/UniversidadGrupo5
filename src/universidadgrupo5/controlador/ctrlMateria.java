@@ -116,10 +116,16 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
             int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),0);
             for (Materia m:listaMaterias){
                 if (m.getId_materia()==id){
-                    m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
-                    m.setAnio(Integer.parseInt((String)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2) ));
-                    m.setEstado((Boolean) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 3));
-                    md.actualizarMateria(m);
+                    
+                    try{
+                        m.setAnio(Integer.parseInt((String)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2) ));
+                        m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
+                        m.setEstado((Boolean) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 3));
+                        md.actualizarMateria(m);
+                    }catch(NumberFormatException nfe){
+                        JOptionPane.showMessageDialog(vlm, "El año debe ser un numero");
+                    }
+                    
                     
                 }
             }
