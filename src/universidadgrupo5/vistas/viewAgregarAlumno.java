@@ -77,6 +77,7 @@ public class viewAgregarAlumno extends javax.swing.JInternalFrame {
 
         jdcFecha.setDateFormatString("yyyy-mm-dd");
 
+        jtfFecha.setEditable(false);
         jtfFecha.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
