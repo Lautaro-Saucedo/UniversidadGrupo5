@@ -38,6 +38,7 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
         jbBorrar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jlTitulo1 = new javax.swing.JLabel();
+        jbCambiarEstado = new javax.swing.JButton();
 
         setTitle("Listado de Materias");
 
@@ -91,6 +92,8 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
         jlTitulo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlTitulo1.setText("Listado de Materias");
 
+        jbCambiarEstado.setText("Cambiar Estado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,6 +103,8 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jbBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(jbCambiarEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
@@ -116,7 +121,8 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbSalir)
-                    .addComponent(jbBorrar))
+                    .addComponent(jbBorrar)
+                    .addComponent(jbCambiarEstado))
                 .addGap(24, 24, 24))
         );
 
@@ -140,11 +146,16 @@ public class viewListarMaterias extends javax.swing.JInternalFrame {
     public JTable getJtListado() {
         return jtListado;
     }
+
+    public JButton getJbCambiarEstado() {
+        return jbCambiarEstado;
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbBorrar;
+    private javax.swing.JButton jbCambiarEstado;
     private javax.swing.JButton jbSalir;
     private javax.swing.JLabel jlTitulo1;
     private javax.swing.JTable jtListado;

@@ -58,6 +58,7 @@ public class viewAgregarMateria extends javax.swing.JInternalFrame {
         jLabel4.setText("Año:");
 
         jtCodigo.setEditable(false);
+        jtCodigo.setEnabled(false);
         jtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtCodigoActionPerformed(evt);

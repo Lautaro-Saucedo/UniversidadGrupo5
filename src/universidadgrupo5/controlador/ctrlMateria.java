@@ -50,6 +50,7 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         vlm.getJbSalir().addActionListener(this);
         enumFuente.put(vlm.getJbBorrar(), 1);
         enumFuente.put(vlm.getJbSalir(), 2);
+        enumFuente.put(vlm.getJbCambiarEstado(), 3);
         cabeceraTabla();
         contenidoTabla();
     }
@@ -60,8 +61,9 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         listaMaterias = md.listarMaterias();
         vam.getJbAgregar().addActionListener(this);
         vam.getJbLimpiar().addActionListener(this);
-        enumFuente.put(vam.getJbAgregar(),3);
-        enumFuente.put(vam.getJbLimpiar(),4);
+        enumFuente.put(vam.getJbAgregar(),4);
+        enumFuente.put(vam.getJbLimpiar(),5);
+        
     }
     
     
@@ -84,8 +86,26 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
                 vlm.dispose();
                 break;
             }
+            case 3:{//boton cambiar estado
+                System.out.println("click en cambiar estado");
+                try {
+                    System.out.println("algo");
+                    if ((Boolean)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 3)){
+                        md.borrarMateriaL((int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0));
+                        tablaMaterias.setValueAt(false, vlm.getJtListado().getSelectedRow(), 3);
+                        vlm.getJtListado().setModel(tablaMaterias);
+                    } else {
+                        md.restaurarMateria((int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0));
+                        tablaMaterias.setValueAt(true, vlm.getJtListado().getSelectedRow(), 3);
+                        vlm.getJtListado().setModel(tablaMaterias);
+                    }
+                } catch (Exception e){
+                    System.out.println("Ha ocurrido una excepcion");
+                }
+                break;
+            }
             // --------------- botones de viewAgregarMateria --------------------
-            case 3:{//boton agregar
+            case 4:{//boton agregar
                 try{
                 String nombre_materia = vam.getJtNombre().getText();
                 int agno = Integer.parseInt(vam.getJtAgno().getText());
@@ -100,12 +120,15 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
                 }catch(NumberFormatException nfe){
                     JOptionPane.showMessageDialog(vam, "El formato del año de la carrera debe ser numerico");//faltaria agregarle tambien el rango, tal vez de 1-5 o 1-3 dependiendo la carrera
                 }
+                break;
             }
-            case 4:{//boton limpiar
+            case 5:{//boton limpiar
                 vam.getJtCodigo().setText("");
                 vam.getJtNombre().setText("");
-                vam.getJtAgno().setText("");               
+                vam.getJtAgno().setText("");
+                break;
             }
+            
         }           
     }
 
@@ -118,9 +141,18 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
                 if (m.getId_materia()==id){
                     
                     try{
-                        m.setAnio(Integer.parseInt((String)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2) ));
+                        int intAgno;
+                        Object agno = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2);
+                        if(agno instanceof String){
+                            intAgno = Integer.valueOf((String)agno);
+                            System.out.println("Estoy parado en columna año");
+                        }else{//los sout los puse para entender o tratar de entender la tabla
+                            intAgno = (int)agno;
+                            System.out.println("Estoy parado en la columna nombre");
+                        }
+                        
+                        m.setAnio(intAgno);
                         m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
-                        m.setEstado((Boolean) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 3));
                         md.actualizarMateria(m);
                     }catch(NumberFormatException nfe){
                         JOptionPane.showMessageDialog(vlm, "El año debe ser un numero");
