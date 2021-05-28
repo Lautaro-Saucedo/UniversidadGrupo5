@@ -46,6 +46,7 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         listaMaterias = md.listarMaterias(); //ver que pasa cuando la lista que retorna esta vacia
         vlm.getJbBorrar().addActionListener(this);
         vlm.getJbSalir().addActionListener(this);
+        vlm.getJbCambiarEstado().addActionListener(this);
         enumFuente.put(vlm.getJbBorrar(), 1);
         enumFuente.put(vlm.getJbSalir(), 2);
         enumFuente.put(vlm.getJbCambiarEstado(), 3);
