@@ -24,6 +24,7 @@ public class viewMenu extends javax.swing.JFrame {
      */
     public viewMenu() {
         initComponents();
+        setLocationRelativeTo(null);//LXW: para que aparezca centrado en la pantalla
     }
 
     /**
