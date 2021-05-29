@@ -23,6 +23,14 @@ public class ctrlCursada implements ActionListener, TableModelListener, Property
     private List<Cursada> listaCursada = new ArrayList<>();
     private DefaultTableModel tablaCursada;
 
+    public ctrlCursada(viewInscripcion vi, CursadaData cd) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ctrlCursada(viewCargarNotas vcg, CursadaData cd) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

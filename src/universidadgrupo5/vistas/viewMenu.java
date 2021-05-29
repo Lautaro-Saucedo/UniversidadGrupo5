@@ -17,6 +17,7 @@ public class viewMenu extends javax.swing.JFrame {
     
     private AlumnoData ad = new AlumnoData(con);
     private MateriaData md= new MateriaData(con);
+    private CursadaData cd= new CursadaData(con);
     //laucha: aca se agregarian las 2 data restantes
 
     /**
@@ -196,7 +197,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewInscripcion vi = new viewInscripcion();
-        //ctrlControl?
+        ctrlCursada cc = new ctrlCursada(vi,cd);
         escritorio.add(vi);
         vi.setVisible(true);
     }//GEN-LAST:event_jmiInscripcionActionPerformed
@@ -205,7 +206,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewCargarNotas vcg = new viewCargarNotas();
-        //ctrlControl?
+        ctrlCursada cc = new ctrlCursada(vcg,cd);
         escritorio.add(vcg);
         vcg.setVisible(true);
     }//GEN-LAST:event_jmiCargarNotasActionPerformed
