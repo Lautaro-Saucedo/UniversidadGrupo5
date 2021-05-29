@@ -86,9 +86,7 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
                 break;
             }
             case 3:{//boton cambiar estado
-                System.out.println("click en cambiar estado");
                 try {
-                    System.out.println("algo");
                     if ((Boolean)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 3)){
                         md.borrarMateriaL((int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0));
                         tablaMaterias.setValueAt(false, vlm.getJtListado().getSelectedRow(), 3);
@@ -136,30 +134,30 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         if (vlm.getJtListado().getSelectedRow()!=-1 && vlm.getJtListado().getSelectedColumn()!=-1 ){
             Object edit = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),vlm.getJtListado().getSelectedColumn());
             int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),0);
-            for (Materia m:listaMaterias){
-                if (m.getId_materia()==id){
-                    
-                    try{
-                        int intAgno;
-                        Object agno = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2);
-                        if(agno instanceof String){
-                            intAgno = Integer.valueOf((String)agno);
-                            System.out.println("Estoy parado en columna año");
-                        }else{//los sout los puse para entender o tratar de entender la tabla
-                            intAgno = (int)agno;
-                            System.out.println("Estoy parado en la columna nombre");
+            if(vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1) instanceof String && vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2) instanceof String){//cuando modifique solo la columna estado esto va a ser falso
+                for (Materia m:listaMaterias){
+                    if (m.getId_materia()==id){
+
+                        try{
+                            int intAgno;
+                            Object agno = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2);
+                            if(agno instanceof String){
+                                intAgno = Integer.valueOf((String)agno);
+                            }else{
+                                intAgno = (int)agno;
+                            }                       
+                            m.setAnio(intAgno);
+                            m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
+                            md.actualizarMateria(m);
+                        }catch(NumberFormatException nfe){
+                            JOptionPane.showMessageDialog(vlm, "El año debe ser un numero");
                         }
-                        
-                        m.setAnio(intAgno);
-                        m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
-                        md.actualizarMateria(m);
-                    }catch(NumberFormatException nfe){
-                        JOptionPane.showMessageDialog(vlm, "El año debe ser un numero");
+
+
                     }
-                    
-                    
                 }
             }
+            
         }
     }
 
