@@ -61,7 +61,7 @@ public class viewAgregarAlumno extends javax.swing.JInternalFrame {
         jlTitulo.setText("Agregar Alumno");
 
         jlId.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jlId.setText("ID:");
+        jlId.setText("N° de Legajo:");
 
         jlId1.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jlId1.setText("Nombre:");

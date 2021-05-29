@@ -61,6 +61,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jrbMateriasInscripto);
         jrbMateriasInscripto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        jrbMateriasInscripto.setSelected(true);
         jrbMateriasInscripto.setText("Materias en las que SI está inscripto");
         jrbMateriasInscripto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,11 +93,11 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
                 {null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Año"
+                "ID", "Materia", "Año"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

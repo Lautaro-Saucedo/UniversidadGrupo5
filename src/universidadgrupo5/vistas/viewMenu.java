@@ -6,7 +6,7 @@
 package universidadgrupo5.vistas;
 
 import universidadgrupo5.controlador.*;
-import universidadgrupo5.modelo.*;
+import universidadgrupo5.modelo.Conexion;
 
 /**
  *
@@ -65,7 +65,9 @@ public class viewMenu extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Materias");
+        jMenu1.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jmiAgregarMateria.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiAgregarMateria.setText("Agregar Materia");
         jmiAgregarMateria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +76,7 @@ public class viewMenu extends javax.swing.JFrame {
         });
         jMenu1.add(jmiAgregarMateria);
 
+        jmiListarMaterias.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiListarMaterias.setText("Listar Materias");
         jmiListarMaterias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,7 +88,9 @@ public class viewMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Alumnos");
+        jMenu2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jmiAgregarAlumno.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiAgregarAlumno.setText("Agregar Alumno");
         jmiAgregarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,6 +99,7 @@ public class viewMenu extends javax.swing.JFrame {
         });
         jMenu2.add(jmiAgregarAlumno);
 
+        jmiListarAlumnos.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiListarAlumnos.setText("Listar Alumnos");
         jmiListarAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,7 +111,9 @@ public class viewMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Inscripcion");
+        jMenu3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jmiInscripcion.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiInscripcion.setText("Formulario de Inscripcion");
         jmiInscripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +122,7 @@ public class viewMenu extends javax.swing.JFrame {
         });
         jMenu3.add(jmiInscripcion);
 
+        jmiCargarNotas.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiCargarNotas.setText("Cargar Notas");
         jmiCargarNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,7 +134,9 @@ public class viewMenu extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setText("Salir");
+        jMenu4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
 
+        jmiSalir.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jmiSalir.setText("Salir");
         jmiSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
