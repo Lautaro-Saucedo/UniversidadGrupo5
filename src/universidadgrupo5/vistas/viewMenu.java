@@ -189,7 +189,6 @@ public class viewMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiAgregarAlumnoActionPerformed
 
     private void jmiSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSalirActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jmiSalirActionPerformed
 

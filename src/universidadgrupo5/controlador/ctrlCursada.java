@@ -19,7 +19,7 @@ public class ctrlCursada implements ActionListener, TableModelListener, Property
     
     private viewCargarNotas vcg;
     private viewInscripcion vi;
-   // private cursadaData cd; esto me da error por alguna razón, luego vemo.
+    private CursadaData cd;
     private List<Cursada> listaCursada = new ArrayList<>();
     private DefaultTableModel tablaCursada;
 

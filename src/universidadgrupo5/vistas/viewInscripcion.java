@@ -5,6 +5,13 @@
  */
 package universidadgrupo5.vistas;
 
+import java.awt.event.KeyEvent;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.JTable;
+
 /**
  *
  * @author @LXWeber Leandro Xavier Weber
@@ -27,6 +34,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jlTitulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jcbAlumno = new javax.swing.JComboBox<>();
@@ -51,6 +59,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
         jcbAlumno.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        buttonGroup1.add(jrbMateriasInscripto);
         jrbMateriasInscripto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jrbMateriasInscripto.setText("Materias en las que SI está inscripto");
         jrbMateriasInscripto.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +68,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
+        buttonGroup1.add(jrbMateriasNoInscripto);
         jrbMateriasNoInscripto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jrbMateriasNoInscripto.setText("Materias en las que NO está inscripto");
 
@@ -102,6 +112,16 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
 
         jbInscribir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbInscribir.setText("Inscribir");
+        jbInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInscribirActionPerformed(evt);
+            }
+        });
+        jbInscribir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbInscribirKeyPressed(evt);
+            }
+        });
 
         jbDesinscribir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbDesinscribir.setText("Desinscribir");
@@ -110,12 +130,17 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
                 jbDesinscribirActionPerformed(evt);
             }
         });
+        jbDesinscribir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbDesinscribirKeyPressed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
+        jbSalir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbSalirKeyPressed(evt);
             }
         });
 
@@ -157,7 +182,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addComponent(jcbAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jrbMateriasInscripto)
@@ -170,26 +195,75 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
                     .addComponent(jbInscribir)
                     .addComponent(jbDesinscribir)
                     .addComponent(jbSalir))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    public JComboBox getjcbAlumnos(){
+        return jcbAlumno;
+    }
+    
+    /*public ButtonGroup getbgMaterias(){
+        return buttonGroup1;
+    }*/
+
+    
+    public JRadioButton getjrbMateriasInscripto(){
+        return jrbMateriasInscripto;
+    }
+    public JRadioButton getjrbMateriasNoInscripto(){
+        return jrbMateriasNoInscripto;
+    }
+    
+    public JTable getJtListado(){
+        return jtListado;
+    }
+
+    public JButton getJbInscribir(){
+        return jbInscribir;
+    }
+    public JButton getJbDesinscribir(){
+        return jbDesinscribir;
+    }
+    public JButton getJbSalir(){
+        return jbSalir;
+    }
+    
+    private void jbDesinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDesinscribirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbDesinscribirActionPerformed
 
     private void jrbMateriasInscriptoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasInscriptoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jrbMateriasInscriptoActionPerformed
 
-    private void jbDesinscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDesinscribirActionPerformed
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jbDesinscribirActionPerformed
+    }//GEN-LAST:event_jbInscribirActionPerformed
 
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_jbSalirActionPerformed
+    private void jbInscribirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbInscribirKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+            jbInscribir.doClick();
+        }
+    }//GEN-LAST:event_jbInscribirKeyPressed
+
+    private void jbDesinscribirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbDesinscribirKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+            jbDesinscribir.doClick();
+        }
+    }//GEN-LAST:event_jbDesinscribirKeyPressed
+
+    private void jbSalirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbSalirKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+            jbSalir.doClick();
+        }
+    }//GEN-LAST:event_jbSalirKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDesinscribir;

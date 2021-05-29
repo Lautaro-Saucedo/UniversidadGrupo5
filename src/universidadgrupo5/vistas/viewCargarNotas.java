@@ -5,6 +5,11 @@
  */
 package universidadgrupo5.vistas;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+
 /**
  *
  * @author @LXWeber Leandro Xavier Weber
@@ -80,12 +85,22 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
 
         jbGuardar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbGuardar.setText("Guardar");
+        jbGuardar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbGuardarKeyPressed(evt);
+            }
+        });
 
         jbSalir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
+            }
+        });
+        jbSalir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jbSalirKeyPressed(evt);
             }
         });
 
@@ -134,9 +149,37 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public JComboBox getjcbAlumnos(){
+        return jcbAlumno;
+    }
+    
+    public JTable getJtListado(){
+        return jtListado;
+    }
+
+    public JButton getJbGuardar(){
+        return jbGuardar;
+    }
+    
+    public JButton getJbSalir(){
+        return jbSalir;
+    }
+    
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbGuardarKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+            jbGuardar.doClick();
+        }
+    }//GEN-LAST:event_jbGuardarKeyPressed
+
+    private void jbSalirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbSalirKeyPressed
+        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
+            jbSalir.doClick();
+        }
+    }//GEN-LAST:event_jbSalirKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
