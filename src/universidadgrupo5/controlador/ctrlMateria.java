@@ -135,7 +135,6 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
             Object edit = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),vlm.getJtListado().getSelectedColumn());
             int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),0);
             if(vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1) instanceof String && vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2) instanceof String){//cuando modifique solo la columna estado esto va a ser falso
-                System.out.println("soy un string");
                 for (Materia m:listaMaterias){
                     if (m.getId_materia()==id){
 
