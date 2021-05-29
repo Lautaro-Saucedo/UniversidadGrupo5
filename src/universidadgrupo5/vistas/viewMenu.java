@@ -106,9 +106,19 @@ public class viewMenu extends javax.swing.JFrame {
         jMenu3.setText("Inscripcion");
 
         jmiInscripcion.setText("Formulario de Inscripcion");
+        jmiInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiInscripcionActionPerformed(evt);
+            }
+        });
         jMenu3.add(jmiInscripcion);
 
         jmiCargarNotas.setText("Cargar Notas");
+        jmiCargarNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCargarNotasActionPerformed(evt);
+            }
+        });
         jMenu3.add(jmiCargarNotas);
 
         jMenuBar1.add(jMenu3);
@@ -181,6 +191,24 @@ public class viewMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jmiSalirActionPerformed
+
+    private void jmiInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiInscripcionActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewInscripcion vi = new viewInscripcion();
+        //ctrlControl?
+        escritorio.add(vi);
+        vi.setVisible(true);
+    }//GEN-LAST:event_jmiInscripcionActionPerformed
+
+    private void jmiCargarNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCargarNotasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        viewCargarNotas vcg = new viewCargarNotas();
+        //ctrlControl?
+        escritorio.add(vcg);
+        vcg.setVisible(true);
+    }//GEN-LAST:event_jmiCargarNotasActionPerformed
 
     /**
      * @param args the command line arguments
