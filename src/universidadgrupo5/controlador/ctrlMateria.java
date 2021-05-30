@@ -134,19 +134,15 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         if (vlm.getJtListado().getSelectedRow()!=-1 && vlm.getJtListado().getSelectedColumn()!=-1 ){
             Object edit = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),vlm.getJtListado().getSelectedColumn());
             int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),0);
-            if(vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1) instanceof String && vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2) instanceof String){//cuando modifique solo la columna estado esto va a ser falso
+            if(tme.getColumn() != 3){//cuando modifique solo la columna estado ,esto va a ser falso
                 for (Materia m:listaMaterias){
                     if (m.getId_materia()==id){
 
                         try{
-                            int intAgno;
+                            
                             Object agno = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2);
-                            if(agno instanceof String){
-                                intAgno = Integer.valueOf((String)agno);
-                            }else{
-                                intAgno = (int)agno;
-                            }                       
-                            m.setAnio(intAgno);
+                                                   
+                            m.setAnio(Integer.parseInt(agno.toString()));
                             m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
                             md.actualizarMateria(m);
                         }catch(NumberFormatException nfe){
