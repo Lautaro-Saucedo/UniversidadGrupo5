@@ -32,7 +32,7 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
     private DefaultTableModel tablaMaterias;
     private HashMap<Object,Integer> enumFuente = new HashMap<>();
 
-    public ctrlMateria(viewListarMaterias vlm, MateriaData md) {
+    public ctrlMateria(viewListarMaterias vlm, MateriaData md) {//este es mi comentario
         this.vlm = vlm;
         this.md = md;
         tablaMaterias = new DefaultTableModel(){
