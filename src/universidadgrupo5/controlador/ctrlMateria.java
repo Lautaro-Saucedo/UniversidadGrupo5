@@ -24,6 +24,7 @@ import universidadgrupo5.vistas.viewListarMaterias;
  *
  * @author br1st
  */
+
 public class ctrlMateria implements ActionListener, TableModelListener, PropertyChangeListener{
     private viewListarMaterias vlm;
     private viewAgregarMateria vam;
@@ -51,7 +52,20 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         enumFuente.put(vlm.getJbSalir(), 2);
         enumFuente.put(vlm.getJbCambiarEstado(), 3);
         cabeceraTabla();
-        contenidoTabla();
+        contenidoTabla();        
+    }
+    private Object vfa(int columna) {
+        return vlm.getJtListado().getValueAt(gsr(), columna);
+    }
+
+    //get selected row
+    private int gsr() {
+        return vlm.getJtListado().getSelectedRow();
+    }
+
+    //get selected column
+    private int gsc() {
+        return vlm.getJtListado().getSelectedColumn();
     }
     
     public ctrlMateria(viewAgregarMateria vam, MateriaData md){
@@ -60,8 +74,10 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
         listaMaterias = md.listarMaterias();
         vam.getJbAgregar().addActionListener(this);
         vam.getJbLimpiar().addActionListener(this);
+        vam.getJbSalir().addActionListener(this);
         enumFuente.put(vam.getJbAgregar(),4);
         enumFuente.put(vam.getJbLimpiar(),5);
+        enumFuente.put(vam.getJbSalir(), 6);
         
     }
     
@@ -75,11 +91,18 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
             // ---------------- botones de viewListarMaterias ---------------------
             case 1:{//boton borrar
                 //no le puse un try catch xq ya esta en el metodo de materia data
-                int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0);//recupero el id de la fila seleccionada
-                md.borrarMateriaF(id);
-                tablaMaterias.removeRow(vlm.getJtListado().getSelectedRow());
-                vlm.getJtListado().setModel(tablaMaterias);
-                break;              
+                if (gsr() != -1 && gsc() != -1 ){
+                    int id = (int)vfa(0);//recupero el id de la fila seleccionada
+                    md.borrarMateriaF(id);
+                    tablaMaterias.removeRow(gsr());
+                    vlm.getJtListado().setModel(tablaMaterias);
+                    break;
+                }else{
+                    JOptionPane.showMessageDialog(vlm, "Debe seleccionar una fila");
+                    break;
+                }
+                
+                              
             }
             case 2:{//boton salir
                 vlm.dispose();
@@ -87,13 +110,13 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
             }
             case 3:{//boton cambiar estado
                 try {
-                    if ((Boolean)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 3)){
-                        md.borrarMateriaL((int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0));
-                        tablaMaterias.setValueAt(false, vlm.getJtListado().getSelectedRow(), 3);
+                    if ((Boolean)vfa(3)){//recupero el valor de la columna tres, en la fila actual
+                        md.borrarMateriaL((int)vfa(0));
+                        tablaMaterias.setValueAt(false, gsr(), 3);
                         vlm.getJtListado().setModel(tablaMaterias);
                     } else {
-                        md.restaurarMateria((int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 0));
-                        tablaMaterias.setValueAt(true, vlm.getJtListado().getSelectedRow(), 3);
+                        md.restaurarMateria((int)vfa(0));
+                        tablaMaterias.setValueAt(true, gsr(), 3);
                         vlm.getJtListado().setModel(tablaMaterias);
                     }
                 } catch (Exception e){
@@ -125,6 +148,9 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
                 vam.getJtAgno().setText("");
                 break;
             }
+            case 6:{//boton salir
+                vam.dispose();
+            }
             
         }           
     }
@@ -132,18 +158,18 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
     @Override
     public void tableChanged(TableModelEvent tme) {
         if (vlm.getJtListado().getSelectedRow()!=-1 && vlm.getJtListado().getSelectedColumn()!=-1 ){
-            Object edit = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),vlm.getJtListado().getSelectedColumn());
-            int id = (int)vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(),0);
+            Object edit = vlm.getJtListado().getValueAt(gsr(),gsc());
+            int id = (int)vfa(0);
             if(tme.getColumn() != 3){//cuando modifique solo la columna estado ,esto va a ser falso
                 for (Materia m:listaMaterias){
                     if (m.getId_materia()==id){
 
                         try{
                             
-                            Object agno = vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 2);
+                            Object agno = vfa(2);
                                                    
                             m.setAnio(Integer.parseInt(agno.toString()));
-                            m.setNombre_materia((String) vlm.getJtListado().getValueAt(vlm.getJtListado().getSelectedRow(), 1));
+                            m.setNombre_materia((String) vfa(1));
                             md.actualizarMateria(m);
                         }catch(NumberFormatException nfe){
                             JOptionPane.showMessageDialog(vlm, "El año debe ser un numero");

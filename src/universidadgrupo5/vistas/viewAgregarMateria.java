@@ -193,6 +193,10 @@ public class viewAgregarMateria extends javax.swing.JInternalFrame {
         return jtNombre;
     }
 
+    public JButton getJbSalir() {
+        return jbSalir;
+    }
+    
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // TODO add your handling code here:             
     }//GEN-LAST:event_jbAgregarActionPerformed
