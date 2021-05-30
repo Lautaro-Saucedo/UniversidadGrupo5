@@ -57,7 +57,6 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
         jLabel2.setText("Alumno:");
 
         jcbAlumno.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         buttonGroup1.add(jrbMateriasInscripto);
         jrbMateriasInscripto.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -113,6 +112,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
 
         jbInscribir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbInscribir.setText("Inscribir");
+        jbInscribir.setEnabled(false);
         jbInscribir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbInscribirActionPerformed(evt);
@@ -270,7 +270,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbDesinscribir;
     private javax.swing.JButton jbInscribir;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbAlumno;
+    private javax.swing.JComboBox<universidadgrupo5.modelo.Alumno> jcbAlumno;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JRadioButton jrbMateriasInscripto;
     private javax.swing.JRadioButton jrbMateriasNoInscripto;

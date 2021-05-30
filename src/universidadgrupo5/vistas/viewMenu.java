@@ -207,7 +207,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewInscripcion vi = new viewInscripcion();
-        ctrlCursada cc = new ctrlCursada(vi,cd);
+        ctrlCursada cc = new ctrlCursada(vi,cd,ad.listarAlumno());
         escritorio.add(vi);
         vi.setVisible(true);
     }//GEN-LAST:event_jmiInscripcionActionPerformed
@@ -216,7 +216,7 @@ public class viewMenu extends javax.swing.JFrame {
         escritorio.removeAll();
         escritorio.repaint();
         viewCargarNotas vcg = new viewCargarNotas();
-        ctrlCursada cc = new ctrlCursada(vcg,cd);
+        ctrlCursada cc = new ctrlCursada(vcg,cd,ad.listarAlumno());
         escritorio.add(vcg);
         vcg.setVisible(true);
     }//GEN-LAST:event_jmiCargarNotasActionPerformed

@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+import universidadgrupo5.modelo.Alumno;
 
 /**
  *
@@ -46,7 +47,6 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
         jLabel2.setText("Alumno:");
 
         jcbAlumno.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
-        jcbAlumno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jtListado.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jtListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -187,7 +187,7 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbAlumno;
+    private javax.swing.JComboBox<Alumno> jcbAlumno;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JTable jtListado;
     // End of variables declaration//GEN-END:variables

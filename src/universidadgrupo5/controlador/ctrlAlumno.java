@@ -76,10 +76,12 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
             // ---------- botones de viewListarAlumnos ----------------
             case 1: {
                 try {
-                    Long id = (Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
-                    ad.borrarAlumnoF(id);
-                    model.removeRow(vla.getJtListado().getSelectedRow());
-                    vla.getJtListado().setModel(model);
+                    if (gsr() != -1 && gsc() != -1) {
+                        Long id = (Long) vfa(0);
+                        ad.borrarAlumnoF(id);
+                        model.removeRow(gsr());
+                        vla.getJtListado().setModel(model);
+                    }
                 } catch (SQLException sqle) {
                     JOptionPane.showMessageDialog(vla, "Error al borrar alumno. Asegúrese de que el alumno no este inscripto a ninguna materia antes de intentar eliminarlo permanentemente.");
                 }
@@ -87,12 +89,12 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
             }
             case 2: {
                 try {
-                    if ((Boolean) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 4)) {
-                        ad.borrarAlumnoLogico((Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
-                        vla.getJtListado().setValueAt(false, vla.getJtListado().getSelectedRow(), 4);
+                    if ((Boolean) vfa(4)) {
+                        ad.borrarAlumnoLogico((Long) vfa(0));
+                        vla.getJtListado().setValueAt(false, gsr(), 4);
                     } else {
-                        ad.restaurarAlumno((Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0));
-                        vla.getJtListado().setValueAt(true, vla.getJtListado().getSelectedRow(), 4);
+                        ad.restaurarAlumno((Long) vfa(0));
+                        vla.getJtListado().setValueAt(true, gsr(), 4);
                     }
                 } catch (Exception e) {
 
@@ -139,8 +141,8 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
                     java.util.Date aux = (java.util.Date) pce.getNewValue();
                     if (aux != null) {
                         String aux2 = aux.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().toString();
-                        if (vla.getJtListado().getSelectedRow() != -1) {
-                            vla.getJtListado().setValueAt(aux2, vla.getJtListado().getSelectedRow(), 3);
+                        if (gsr() != -1) {
+                            vla.getJtListado().setValueAt(aux2, gsr(), 3);
                         }
                     }
                     break;
@@ -157,16 +159,47 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
         }
     }
 
-    private void cabecera() {
-        ArrayList<Object> c = new ArrayList<>();
-        c.add("Legajo");
-        c.add("Nombre");
-        c.add("Apellido");
-        c.add("Fecha de Nacimiento");
-        c.add("Estado");
-        for (Object a : c) {
-            model.addColumn(a);
+    @Override
+    public void tableChanged(TableModelEvent tme) {
+        if (gsr() != -1 && gsc() != -1) {
+            if (!(tme.getColumn() == 4)) {
+                Object edit = vfa(gsc());
+                Long id = (Long) vfa(0);
+                for (Alumno a : lista) {
+                    if (a.getLegajo() == id) {
+                        a.setNombre((String) vfa(1));
+                        a.setApellido((String) vfa(2));
+                        Object fecha = vfa(3);
+                        a.setFecha_nac(LocalDate.parse(fecha.toString()));
+                        ad.actualizarAlumno(a);
+                    }
+                }
+            }
         }
+    }
+
+    //----------------------------------------------------
+    //valor fila actual
+    private Object vfa(int columna) {
+        return vla.getJtListado().getValueAt(gsr(), columna);
+    }
+
+    //get selected row
+    private int gsr() {
+        return vla.getJtListado().getSelectedRow();
+    }
+
+    //get selected column
+    private int gsc() {
+        return vla.getJtListado().getSelectedColumn();
+    }
+
+    private void cabecera() {
+        model.addColumn("Legajo");
+        model.addColumn("Nombre");
+        model.addColumn("Apellido");
+        model.addColumn("Fecha de Nacimiento");
+        model.addColumn("Estado");
         vla.getJtListado().setModel(model);
     }
 
@@ -175,24 +208,5 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
             model.addRow(new Object[]{a.getLegajo(), a.getNombre(), a.getApellido(), a.getFecha_nac(), a.isEstado()});
         }
         vla.getJtListado().setModel(model);
-    }
-
-    @Override
-    public void tableChanged(TableModelEvent tme) {
-        if (vla.getJtListado().getSelectedRow() != -1 && vla.getJtListado().getSelectedColumn() != -1) {
-            if (!(tme.getColumn() == 4)) {
-                Object edit = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), vla.getJtListado().getSelectedColumn());
-                Long id = (Long) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 0);
-                for (Alumno a : lista) {
-                    if (a.getLegajo() == id) {
-                        a.setNombre((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 1));
-                        a.setApellido((String) vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 2));
-                        Object fecha = vla.getJtListado().getValueAt(vla.getJtListado().getSelectedRow(), 3);
-                        a.setFecha_nac(LocalDate.parse(fecha.toString()));
-                        ad.actualizarAlumno(a);
-                    }
-                }
-            }
-        }
     }
 }

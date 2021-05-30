@@ -30,8 +30,10 @@ public class CursadaData {
             ps.setDouble(3,cursada.getNota());
             ps.execute();
             ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            cursada.setId_cursada(rs.getInt(1));
+            if (rs.next()) {
+                cursada.setId_cursada(rs.getInt(1));
+                JOptionPane.showMessageDialog(null, "Inscripcion realizada con exito.");
+            }
             ps.close();
         }catch(SQLException ex){
             JOptionPane.showInputDialog(null,"No se pudo inscribir");
@@ -141,7 +143,9 @@ public class CursadaData {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setInt(1, id_alumno);
             ps.setInt(2, id_materia);
-            ps.executeUpdate();
+            if (ps.executeUpdate()==1) {
+                JOptionPane.showMessageDialog(null, "Cursada eliminada con exito.");
+            }
             ps.close();
         }catch(SQLException sqle){
             JOptionPane.showMessageDialog(null, "No se pudo eliminar");
