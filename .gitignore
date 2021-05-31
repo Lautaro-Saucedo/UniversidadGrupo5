@@ -20,6 +20,7 @@ nbproject/*
 # Package Files #
 *.jar
 !jcalendar-1.4.jar
+!mariadb-java-client-2.3.0_3.jar
 *.war
 *.nar
 *.ear

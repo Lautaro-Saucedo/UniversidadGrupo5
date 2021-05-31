@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2021 a las 04:01:29
+-- Tiempo de generación: 31-05-2021 a las 04:36:20
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 8.0.5
 
@@ -41,21 +41,23 @@ CREATE TABLE `alumno` (
 --
 
 INSERT INTO `alumno` (`id_alumno`, `nombre`, `apellido`, `fecha_nac`, `legajo`, `estado`) VALUES
-(1, 'Lautaro', 'Saucedo', '2021-05-18', 100, 1),
-(2, 'Brennan', 'Turner', '1969-11-27', 109, 0),
-(3, 'Christine', 'Wilson', '1957-08-09', 102, 1),
+(1, 'Lautaro', 'Saucedo', '2016-01-13', 100, 1),
+(2, 'Brennana', 'Turnering', '2018-01-10', 109, 1),
+(3, 'Christine', 'Wilson', '2021-01-26', 102, 0),
 (4, 'Chadwick', 'Garrett', '1953-11-12', 103, 1),
 (5, 'Neville', 'Dorsey', '1961-03-20', 104, 1),
-(6, 'Cheyenne', 'Bryant', '1991-09-19', 105, 0),
-(7, 'Dennis', 'Mills', '1984-11-25', 106, 0),
-(8, 'Penelope', 'Harmon', '1983-10-11', 107, 1),
+(6, 'Cheyenne', 'Bryant', '2019-01-31', 105, 0),
+(7, 'Dennis', 'Mills', '2006-01-17', 106, 0),
+(8, 'Penelope', 'Harmon', '2013-05-17', 107, 1),
 (9, 'Scott', 'Marshall', '1962-11-10', 108, 1),
 (10, 'Fabricio', 'Molina', '1994-05-12', 101, 1),
 (11, 'Aileen', 'Mcconnell', '1975-05-27', 110, 1),
 (12, 'Brandon', 'Hudson', '1968-04-17', 111, 0),
-(13, 'Bryar', 'Pickett', '1953-10-25', 112, 1),
+(13, 'Bryar', 'Pickett', '2021-05-20', 112, 1),
 (14, 'Zahir', 'Webster', '1966-04-16', 113, 1),
-(15, 'Ora', 'Walters', '1997-11-23', 114, 0);
+(15, 'Ora', 'Walters', '1997-11-23', 114, 0),
+(4316, 'lauch', 'sauce', '2021-05-13', 123, 1),
+(4317, 'Ariel', 'Saucedo', '2006-11-22', 9090, 1);
 
 -- --------------------------------------------------------
 
@@ -76,19 +78,18 @@ CREATE TABLE `cursada` (
 
 INSERT INTO `cursada` (`id_cursada`, `id_alumno`, `id_materia`, `nota`) VALUES
 (1, 8, 3, 6),
-(2, 10, 2, 8),
 (3, 14, 6, 9),
 (4, 9, 12, 4),
 (5, 5, 1, 4),
 (6, 11, 11, 8),
 (7, 6, 11, 3),
 (8, 9, 7, 6),
-(9, 1, 1, 6),
+(9, 1, 5, 9),
 (10, 12, 6, 5),
 (11, 11, 2, 8),
 (12, 4, 5, 7),
 (13, 15, 9, 5),
-(14, 1, 1, 6),
+(14, 1, 2, 6),
 (15, 3, 13, 4),
 (16, 15, 10, 9),
 (17, 14, 13, 4),
@@ -104,8 +105,13 @@ INSERT INTO `cursada` (`id_cursada`, `id_alumno`, `id_materia`, `nota`) VALUES
 (27, 4, 4, 2),
 (28, 1, 12, 2),
 (29, 8, 7, 5),
-(30, 1, 1, 0),
-(31, 2, 2, 3);
+(31, 2, 2, 3),
+(33, 1, 1, 3),
+(34, 2, 1, 0),
+(36, 2, 5, 0),
+(37, 2, 6, 0),
+(39, 2, 8, 0),
+(40, 2, 10, 0);
 
 -- --------------------------------------------------------
 
@@ -130,10 +136,10 @@ INSERT INTO `materia` (`id_materia`, `nombre_materia`, `año`, `estado`) VALUES
 (3, 'Admin. de DB', 1, 1),
 (4, 'Lengua', 2, 0),
 (5, 'Historia', 2, 0),
-(6, 'Economia', 5, 1),
-(7, 'Ingles', 1, 0),
-(8, 'Musica', 4, 0),
-(9, 'Informatica', 1, 0),
+(6, 'Economia', 1, 1),
+(7, 'Ingles', 3, 0),
+(8, 'Musica', 1, 0),
+(9, 'Informatica', 2, 0),
 (10, 'Pugilismo', 1, 1),
 (11, 'Biologia', 1, 1),
 (12, 'Tarot', 2, 1),
@@ -172,13 +178,13 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4316;
+  MODIFY `id_alumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4318;
 
 --
 -- AUTO_INCREMENT de la tabla `cursada`
 --
 ALTER TABLE `cursada`
-  MODIFY `id_cursada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_cursada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
