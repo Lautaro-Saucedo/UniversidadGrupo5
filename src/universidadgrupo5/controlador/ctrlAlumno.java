@@ -44,6 +44,16 @@ public class ctrlAlumno implements ActionListener, TableModelListener, PropertyC
             public boolean isCellEditable(int row, int column) {
                 return !(column == 0 || column == 3 || column == 4);
             }
+            
+            @Override
+            public Class<?> getColumnClass(int i){
+                switch (i) {
+                    case 0:return Integer.class;
+                    case 3:return LocalDate.class;
+                    case 4:return Boolean.class;
+                    default:return String.class;
+                }
+            }
         };
         model.addTableModelListener(this);
         this.vla = vla;

@@ -32,6 +32,14 @@ public class ctrlCursada implements ActionListener {
             public boolean isCellEditable(int fila, int columna) {
                 return false;
             }
+            @Override
+            public Class<?> getColumnClass(int i){
+                switch (i) {
+                    case 1:return String.class;
+                    default:return Integer.class;
+                }
+            }
+            
         };
         for (Alumno alumno : la) {
             if(alumno.isEstado()){
@@ -62,6 +70,15 @@ public class ctrlCursada implements ActionListener {
             @Override
             public boolean isCellEditable(int fila, int columna) {
                 return columna == 3;
+            }
+            
+            @Override
+            public Class<?> getColumnClass(int i){
+                switch (i) {
+                    case 1:return String.class;
+                    case 3:return Double.class;
+                    default:return Integer.class;
+                }
             }
         };
         la.forEach((alumno) -> {

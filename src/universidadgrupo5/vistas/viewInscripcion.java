@@ -103,6 +103,7 @@ public class viewInscripcion extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtListado.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtListado);
         if (jtListado.getColumnModel().getColumnCount() > 0) {
             jtListado.getColumnModel().getColumn(0).setResizable(false);

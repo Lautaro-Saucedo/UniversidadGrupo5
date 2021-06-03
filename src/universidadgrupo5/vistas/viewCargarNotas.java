@@ -81,6 +81,7 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        jtListado.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtListado);
 
         jbGuardar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N

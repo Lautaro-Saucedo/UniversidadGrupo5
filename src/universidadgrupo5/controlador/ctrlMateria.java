@@ -42,6 +42,15 @@ public class ctrlMateria implements ActionListener, TableModelListener, Property
                 return !(columna==3 || columna==0);
             }
             
+            @Override
+            public Class<?> getColumnClass(int i){
+                switch (i) {
+                    case 1:return String.class;
+                    case 3:return Boolean.class;
+                    default:return Integer.class;
+                }
+            }
+            
         };
         tablaMaterias.addTableModelListener(this);
         listaMaterias = md.listarMaterias(); //ver que pasa cuando la lista que retorna esta vacia
