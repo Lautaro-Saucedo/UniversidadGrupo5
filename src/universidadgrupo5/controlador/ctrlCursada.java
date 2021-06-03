@@ -34,13 +34,16 @@ public class ctrlCursada implements ActionListener {
             }
         };
         for (Alumno alumno : la) {
-            vi.getjcbAlumnos().addItem(alumno);
+            if(alumno.isEstado()){
+                vi.getjcbAlumnos().addItem(alumno);
+            }
         }
         vi.getjcbAlumnos().addActionListener(this);
         vi.getJbInscribir().addActionListener(this);
         vi.getJbDesinscribir().addActionListener(this);
         vi.getjrbMateriasInscripto().addActionListener(this);
         vi.getjrbMateriasNoInscripto().addActionListener(this);
+        vi.getJbSalir().addActionListener(this);
         fuente.put(vi.getJbInscribir(), 1);
         fuente.put(vi.getJbDesinscribir(), 2);
         fuente.put(vi.getjcbAlumnos(), 3);
@@ -62,7 +65,9 @@ public class ctrlCursada implements ActionListener {
             }
         };
         la.forEach((alumno) -> {
-            vcn.getjcbAlumnos().addItem(alumno);
+            if(alumno.isEstado()){
+                vcn.getjcbAlumnos().addItem(alumno);
+            }
         });
         vcn.getJbGuardar().addActionListener(this);
         vcn.getjcbAlumnos().addActionListener(this);
@@ -156,7 +161,9 @@ public class ctrlCursada implements ActionListener {
     private void llenarListaCursadas(viewInscripcion vi, Alumno a) {
         listaMaterias = cd.obtenerMateriasCursadas(a.getId_alumno());
         for (Materia m : listaMaterias) {
-            tablaCursada.addRow(new Object[]{m.getId_materia(), m.getNombre_materia(), m.getAnio()});
+            if(m.getEstado()){
+                tablaCursada.addRow(new Object[]{m.getId_materia(), m.getNombre_materia(), m.getAnio()});
+            }
         }
         vi.getJtListado().setModel(tablaCursada);
     }
@@ -165,11 +172,13 @@ public class ctrlCursada implements ActionListener {
         listaMaterias = cd.obtenerMateriasCursadas(a.getId_alumno());
         listaCursadas = cd.obtenerCursadasXAlumno(a.getId_alumno());
         for (int i = 0; i < listaMaterias.size(); i++) {
+            if(listaMaterias.get(i).getEstado()){
             tablaCursada.addRow(new Object[]{
                 listaMaterias.get(i).getId_materia(),
                 listaMaterias.get(i).getNombre_materia(),
                 listaMaterias.get(i).getAnio(),
                 listaCursadas.get(i).getNota()});
+            }
         }
         vcn.getJtListado().setModel(tablaCursada);
     }
@@ -177,7 +186,9 @@ public class ctrlCursada implements ActionListener {
     private void llenarListaNoCursadas(Alumno a) {
         listaMaterias = cd.obtenerMateriasCursadas(a.getId_alumno());
         for (Materia m : cd.obtenerMateriasNOCursadas(a.getId_alumno())) {
-            tablaCursada.addRow(new Object[]{m.getId_materia(), m.getNombre_materia(), m.getAnio()});
+            if(m.getEstado()){
+                tablaCursada.addRow(new Object[]{m.getId_materia(), m.getNombre_materia(), m.getAnio()});  
+            }
         }
         vi.getJtListado().setModel(tablaCursada);
     }

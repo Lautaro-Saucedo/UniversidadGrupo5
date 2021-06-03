@@ -5,9 +5,10 @@
  */
 package universidadgrupo5;
 
-import java.time.LocalDate;
-import universidadgrupo5.controlador.*;
-import universidadgrupo5.modelo.*;
+import universidadgrupo5.controlador.AlumnoData;
+import universidadgrupo5.controlador.CursadaData;
+import universidadgrupo5.controlador.MateriaData;
+import universidadgrupo5.modelo.Conexion;
 
 
 /**

@@ -18,11 +18,8 @@ public class viewMenu extends javax.swing.JFrame {
     private AlumnoData ad = new AlumnoData(con);
     private MateriaData md= new MateriaData(con);
     private CursadaData cd= new CursadaData(con);
-    //laucha: aca se agregarian las 2 data restantes
 
-    /**
-     * Creates new form viewMenu
-     */
+    
     public viewMenu() {
         initComponents();
         setLocationRelativeTo(null);//LXW: para que aparezca centrado en la pantalla
