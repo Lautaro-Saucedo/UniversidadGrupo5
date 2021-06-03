@@ -93,11 +93,6 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
 
         jbSalir.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         jbSalir.setText("Salir");
-        jbSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalirActionPerformed(evt);
-            }
-        });
         jbSalir.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jbSalirKeyPressed(evt);
@@ -165,10 +160,6 @@ public class viewCargarNotas extends javax.swing.JInternalFrame {
         return jbSalir;
     }
     
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        dispose();
-    }//GEN-LAST:event_jbSalirActionPerformed
-
     private void jbGuardarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jbGuardarKeyPressed
         if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER){
             jbGuardar.doClick();

@@ -5,27 +5,16 @@
  */
 package universidadgrupo5;
 
-import universidadgrupo5.controlador.AlumnoData;
-import universidadgrupo5.controlador.CursadaData;
-import universidadgrupo5.controlador.MateriaData;
-import universidadgrupo5.modelo.Conexion;
-
 
 /**
  *
- * @author Laucha
+ * @author Los 3.14bes
  */
 public class UniversidadGrupo5 {
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Conexion con = new Conexion();
-        AlumnoData ad = new AlumnoData(con);
-        MateriaData md = new MateriaData(con);
-        CursadaData cd = new CursadaData(con);
-        
-        
         
         
     }

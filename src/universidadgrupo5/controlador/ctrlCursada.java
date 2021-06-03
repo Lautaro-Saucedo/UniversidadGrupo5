@@ -71,8 +71,10 @@ public class ctrlCursada implements ActionListener {
         });
         vcn.getJbGuardar().addActionListener(this);
         vcn.getjcbAlumnos().addActionListener(this);
+        vcn.getJbSalir().addActionListener(this);
         fuente.put(vcn.getJbGuardar(), 7);
         fuente.put(vcn.getjcbAlumnos(), 8);
+        fuente.put(vcn.getJbSalir(),9);
         cabeceraCNotas();
         Alumno alumno = (Alumno) vcn.getjcbAlumnos().getSelectedItem();
         llenarListaCursadas(vcn, alumno);
@@ -136,9 +138,9 @@ public class ctrlCursada implements ActionListener {
                 for (int i = 0; i < tablaCursada.getRowCount(); i++) {
                     Object aux = tablaCursada.getValueAt(i, 3);
                     cd.actualizarNotaCursada(
-                            alumno.getId_alumno(),
-                            (int) tablaCursada.getValueAt(i, 0),
-                            Double.parseDouble(aux.toString())
+                        alumno.getId_alumno(),
+                        (int) tablaCursada.getValueAt(i, 0),
+                        Double.parseDouble(aux.toString())
                     );
                 }
                 JOptionPane.showMessageDialog(null, "Notas guardadas con exito.");
@@ -147,6 +149,10 @@ public class ctrlCursada implements ActionListener {
             case 8: {//jcbAlumnos
                 borrarLista();
                 llenarListaCursadas(vcn, alumno);
+                break;
+            }
+            case 9:{
+                vcn.dispose();;
                 break;
             }
         }
